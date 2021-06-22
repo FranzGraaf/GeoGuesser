@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: Splash_screen.route,
+      initialRoute: Splash_screen.route, //Splash_screen.route,
       onGenerateRoute: generateRoute,
     );
   }
@@ -44,6 +44,8 @@ class Main extends StatefulWidget {
 class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
+    Size _screen_size = MediaQuery.of(context).size;
+    bool _on_mobile = _screen_size.width < global_mobile_treshold;
     return Stack(
       children: [
         Background(),
@@ -52,7 +54,11 @@ class _MainState extends State<Main> {
             Expanded(
                 child: Stack(
               children: [
-                get_main_widget(widget.arguments),
+                Material(
+                    color: Colors.transparent,
+                    child: SizedBox(
+                        width: _screen_size.width,
+                        child: get_main_widget(widget.arguments))),
                 Header(),
               ],
             )),

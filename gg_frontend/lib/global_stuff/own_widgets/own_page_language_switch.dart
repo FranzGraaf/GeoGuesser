@@ -16,16 +16,24 @@ class _Own_Page_Language_SwitchState extends State<Own_Page_Language_Switch> {
     }
 
     return Container(
-      //width: 30,
+      width: 220,
+      padding: EdgeInsets.only(left: 10, right: 10),
       //height: 30,
-      //color: Colors.orangeAccent,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.black, width: 1),
+          borderRadius: BorderRadius.circular(5)),
       child: DropdownButton<Global_Language>(
         value: global_language,
-        icon: Icon(Icons.arrow_downward),
+        icon: Icon(
+          Icons.arrow_downward,
+          color: global_color_1,
+        ),
         iconSize: 15,
         elevation: 5,
-        /*style: TextStyle(color: Colors.deepPurple),
-      underline: Container(
+        style: TextStyle(
+            fontWeight: FontWeight.bold, fontSize: 25, color: Colors.black),
+        /*underline: Container(
         height: 2,
         color: Colors.deepPurpleAccent,
       ),*/
@@ -39,17 +47,17 @@ class _Own_Page_Language_SwitchState extends State<Own_Page_Language_Switch> {
           return DropdownMenuItem<Global_Language>(
             value: value,
             child: SizedBox(
-              //width: 276,
+              width: 180,
               child: Row(
                 children: [
                   Image.asset(
                     global_language_info[value].icon,
                     width: 25,
                   ),
-                  /*SizedBox(
+                  SizedBox(
                     width: 20,
                   ),
-                  Text(global_language_info[value].name),*/
+                  Text(global_language_info[value].name),
                   /*Expanded(
                     child: SizedBox(),
                   ),*/

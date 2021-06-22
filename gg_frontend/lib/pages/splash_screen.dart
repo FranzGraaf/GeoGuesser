@@ -11,7 +11,7 @@ class Splash_screen extends StatefulWidget {
 
 class _Splash_screenState extends State<Splash_screen> {
   void initialise() async {
-    await Future.delayed(Duration(milliseconds: 2000));
+    await Future.delayed(Duration(milliseconds: 100));
     Navigator.of(context).pushNamed(Homepage.route);
   }
 
