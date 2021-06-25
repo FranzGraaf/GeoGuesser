@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/frame/footer.dart';
+import 'package:gg_frontend/frame/frame_pages/about_us.dart';
+import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
+import 'package:gg_frontend/frame/frame_pages/impressum.dart';
 import 'package:gg_frontend/frame/header.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/pages/game.dart';
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: Splash_screen.route, //Splash_screen.route,
+      initialRoute: Homepage.route, //Splash_screen.route,
       onGenerateRoute: generateRoute,
     );
   }
@@ -89,18 +92,16 @@ Widget get_main_widget(var arguments) {
     case Game.route:
       return Game();
     case Result.route:
-      return Result();
+      return Result(
+        arguments: arguments,
+      );
+    case About_Us.route:
+      return About_Us();
+    case Datenschutz.route:
+      return Datenschutz();
+    case Impressum.route:
+      return Impressum();
     default:
-      /*try {
-        if (global_active_route.substring(0, Main_Profile.route.length) ==
-            Main_Profile.route) {
-          return Main_Profile(
-              data: arguments == null ? null : arguments["data"],
-              user_id: arguments["user_id"]);
-        }
-      } catch (e) {
-        print(e);
-      }*/
       return Homepage();
   }
 }

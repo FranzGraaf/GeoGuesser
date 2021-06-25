@@ -2,17 +2,24 @@ import 'dart:async';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/DB_User.dart';
+
+enum Device { android, ios, web }
+Device global_device = Device
+    .web; // set the target device to aktivate or deactivate the according parts of the codes
 
 double global_mobile_treshold = 700;
 String global_active_route = "/";
 
 enum Usertype { visitor, user }
-Usertype global_usertype = Usertype.visitor;
+Usertype global_usertype = Usertype.user; // usertype is visitor by default
+DB_User global_userdata = DB_User();
+int global_total_players;
 
 StreamController<bool> global_rebuild_controller =
     StreamController<bool>.broadcast();
 
-bool global_list_in_ranking = true;
+bool global_show_in_ranking = true;
 String global_default_user_image =
     "https://firebasestorage.googleapis.com/v0/b/geoguesser-bccbe.appspot.com/o/Avatar_Bild.png?alt=media&token=70c16373-b633-4bfe-a34b-7d95870f3e21";
 

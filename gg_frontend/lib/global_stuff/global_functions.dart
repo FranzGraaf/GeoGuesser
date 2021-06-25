@@ -98,6 +98,22 @@ double calc_length_max(
   }
 }
 
+double calc_length_min_max(
+  double min_length,
+  double max_length,
+  double screen_percentage,
+  double screen_length,
+) {
+  // outputs a length with a maximum and minimum value
+  if (screen_percentage * screen_length < min_length) {
+    return min_length;
+  } else if (screen_percentage * screen_length > max_length) {
+    return max_length;
+  } else {
+    return screen_percentage * screen_length;
+  }
+}
+
 DateTime string_to_date(String string) {
   return DateFormat("yyyy-MM-dd hh:mm:ss").parse(string);
 }

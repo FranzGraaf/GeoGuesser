@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
+import 'package:gg_frontend/global_stuff/own_widgets/own_submittable_text_input.dart';
 
 class Profile extends StatefulWidget {
   static const String route = '/profile';
@@ -11,6 +12,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  TextEditingController _name_controller = TextEditingController();
   List<Map<String, dynamic>> _ranking_list = [
     {"number": 40, "name": "Tom", "points": 780},
     {"number": 41, "name": "Tom", "points": 777},
@@ -23,6 +25,13 @@ class _ProfileState extends State<Profile> {
     {"number": 48, "name": "Tom", "points": 755},
     {"number": 49, "name": "Tom", "points": 753},
   ];
+
+  @override
+  void initState() {
+    _name_controller.text = global_userdata.nickname ?? "-";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,17 +43,26 @@ class _ProfileState extends State<Profile> {
           ),
           ClipOval(
               child: Image.network(
-            global_default_user_image,
+            global_userdata.image_url ?? global_default_user_image,
             width: 200,
             height: 200,
           )),
           SizedBox(
             height: 10,
           ),
-          Text(
-            "Name",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+          SizedBox(
+            width: 300,
+            child: Own_Submittable_Text_Input(
+              _name_controller,
+              max_lines: 1,
+              on_changed: (value) {},
+              submitted: (value) {},
+              aborted: () {},
+              text_style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30),
+            ),
           ),
           SizedBox(
             height: 10,
@@ -61,14 +79,15 @@ class _ProfileState extends State<Profile> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "RANK: 50",
+                (runtimeType == Global_Language.eng ? "RANK: " : "RANG: ") +
+                    (global_userdata.ranking ?? "-").toString(),
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 40),
               ),
               Text(
-                " / 203424",
+                " / " + (global_total_players ?? "-").toString(),
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.normal,
@@ -84,14 +103,17 @@ class _ProfileState extends State<Profile> {
             children: [
               Own_Button_3(
                 onPressed: () {},
-                text: "1st",
+                text: global_language == Global_Language.eng ? "1st" : "1.",
               ),
               SizedBox(
                 width: 10,
               ),
               Own_Button_3(
                 onPressed: () {},
-                text: "50. (you)",
+                text: (global_userdata.ranking ?? "-").toString() +
+                    (global_language == Global_Language.eng
+                        ? ". (you)"
+                        : ". (du)"),
               )
             ],
           ),

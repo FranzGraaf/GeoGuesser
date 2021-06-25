@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_1.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
+import 'package:gg_frontend/main.dart';
 import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
@@ -18,6 +21,21 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   @override
+  void initState() {
+    global_language_streamController.stream.listen((data) {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    global_language_streamController.close();
+    global_language_streamController = StreamController.broadcast();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size _screen_size = MediaQuery.of(context).size;
     bool _on_mobile = _screen_size.width < global_mobile_treshold;
@@ -26,35 +44,52 @@ class _HomepageState extends State<Homepage> {
         SizedBox(
           height: 5,
         ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(Login.route);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text("Name / Sign In"),
-              SizedBox(
-                width: 10,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Login.route);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 5,
+                  ),
+                  global_usertype == Usertype.user
+                      ? Text(global_userdata.nickname ?? "-")
+                      : Text(global_language == Global_Language.eng
+                          ? "login / register"
+                          : "login / registrieren"),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  global_usertype == Usertype.user
+                      ? ClipOval(
+                          child: Image.network(
+                            global_userdata.image_url ??
+                                global_default_user_image,
+                            width: 50,
+                            height: 50,
+                          ),
+                        )
+                      : Container(),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
               ),
-              ClipOval(
-                child: Image.network(
-                  global_default_user_image,
-                  width: 50,
-                  height: 50,
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         Expanded(
           child: SizedBox(),
         ),
         Text(
-          "World Rank",
+          global_language == Global_Language.eng
+              ? "World Ranking"
+              : "Weltrangliste",
           style: TextStyle(
               color: global_color_1,
               fontSize: 40,
@@ -64,12 +99,12 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("50",
+            Text((global_userdata.ranking ?? "-").toString(),
                 style: TextStyle(
                     color: global_color_1,
                     fontSize: 40,
                     fontWeight: FontWeight.bold)),
-            Text(" / 203424",
+            Text(" / " + (global_total_players ?? "-").toString(),
                 style: TextStyle(
                     color: global_color_1,
                     fontSize: 25,
@@ -80,7 +115,7 @@ class _HomepageState extends State<Homepage> {
           height: 15,
         ),
         Own_Button_1(
-          text: "Play",
+          text: global_language == Global_Language.eng ? "Play" : "Play",
           onPressed: () {
             Navigator.of(context).pushNamed(Game.route);
           },
@@ -91,7 +126,7 @@ class _HomepageState extends State<Homepage> {
         Own_Button_1(
           width: 240,
           height: 80,
-          text: "Profile",
+          text: global_language == Global_Language.eng ? "Profile" : "Profil",
           onPressed: () {
             Navigator.of(context).pushNamed(Profile.route);
           },
@@ -100,29 +135,39 @@ class _HomepageState extends State<Homepage> {
         Expanded(
           child: SizedBox(),
         ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(Settings.route);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 5,
+        Row(
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Settings.route);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 5,
+                  ),
+                  ClipOval(
+                    child: Image.asset(
+                      "assets/images/settings.png",
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(global_language == Global_Language.eng
+                      ? "Settings"
+                      : "Einstellungen"),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
               ),
-              ClipOval(
-                child: Image.asset(
-                  "assets/images/settings.png",
-                  width: 40,
-                  height: 40,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text("Settings"),
-            ],
-          ),
+            ),
+          ],
         ),
         SizedBox(
           height: 5,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 
 class Own_Page_Language_Switch extends StatefulWidget {
+  Function on_change;
+  Own_Page_Language_Switch({@required this.on_change});
   @override
   _Own_Page_Language_SwitchState createState() =>
       _Own_Page_Language_SwitchState();

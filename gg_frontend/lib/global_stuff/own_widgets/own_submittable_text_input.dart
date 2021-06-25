@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/global_variables.dart';
 
 class Own_Submittable_Text_Input extends StatefulWidget {
   TextEditingController controller;
@@ -18,9 +19,9 @@ class Own_Submittable_Text_Input extends StatefulWidget {
       this.label_text,
       this.hint_text,
       this.autofocus = false,
-      this.on_changed,
-      this.submitted,
-      this.aborted});
+      @required this.on_changed,
+      @required this.submitted,
+      @required this.aborted});
 
   @override
   _Own_Submittable_Text_InputState createState() =>
@@ -49,9 +50,16 @@ class _Own_Submittable_Text_InputState
         widget.on_changed(value);
         setState(() {});
       },
+      cursorColor: global_color_1,
       decoration: InputDecoration(
           labelText: widget.label_text,
           hintText: widget.hint_text,
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent, width: 2),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: global_color_1, width: 2),
+          ),
           suffixIcon: flag != widget.controller.text
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -63,6 +71,7 @@ class _Own_Submittable_Text_InputState
                         setState(() {
                           flag = widget.controller.text;
                         });
+                        FocusScope.of(context).unfocus();
                         widget.submitted(widget.controller.text);
                       },
                     ),
@@ -72,6 +81,7 @@ class _Own_Submittable_Text_InputState
                           setState(() {
                             widget.controller.text = flag;
                           });
+                          FocusScope.of(context).unfocus();
                           widget.aborted();
                         }),
                   ],

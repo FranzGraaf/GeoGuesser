@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/frame/frame_pages/about_us.dart';
 import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
@@ -60,7 +62,17 @@ class _FooterState extends State<Footer> {
   @override
   void initState() {
     get_setup();
+    global_language_streamController.stream.listen((data) {
+      setState(() {});
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    global_language_streamController.close();
+    global_language_streamController = StreamController.broadcast();
+    super.dispose();
   }
 
   @override

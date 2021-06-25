@@ -7,6 +7,7 @@ class Own_Textinput_V1 extends StatefulWidget {
   String hint_text;
   bool enabled;
   bool autofocus;
+  double width;
   Function(String value) on_changed;
   String init_text;
   int max_lines;
@@ -18,7 +19,8 @@ class Own_Textinput_V1 extends StatefulWidget {
       this.label,
       this.hint_text,
       this.on_changed,
-      this.obscure = false});
+      this.obscure = false,
+      this.width = 230});
   @override
   _Own_Textinput_V1State createState() => _Own_Textinput_V1State();
 }
@@ -27,7 +29,7 @@ class _Own_Textinput_V1State extends State<Own_Textinput_V1> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 230,
+      width: widget.width,
       height: 50,
       padding: EdgeInsets.only(top: 3, bottom: 3, left: 6, right: 6),
       decoration: BoxDecoration(

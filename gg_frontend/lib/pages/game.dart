@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
+import 'package:gg_frontend/pages/homepage.dart';
+import 'package:gg_frontend/pages/result.dart';
+import 'package:gg_frontend/popups/end_game_popup.dart';
+import 'package:gg_frontend/popups/sure_popup.dart';
 
 class Game extends StatefulWidget {
   static const String route = '/game';
@@ -11,6 +15,35 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  double _calc_distance() {
+    return 5.6;
+  }
+
+  void _open_end_game_popup() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return End_Game_Popup();
+        }).then((value) {
+      if (value ?? false) {
+        Navigator.of(context).pushReplacementNamed(Homepage.route);
+      } else {}
+    });
+  }
+
+  void _open_sure_popup() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return Sure_Popup();
+        }).then((value) {
+      if (value ?? false) {
+        Navigator.of(context).pushReplacementNamed(Result.route,
+            arguments: {"distance": _calc_distance()});
+      } else {}
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _screen_size = MediaQuery.of(context).size;
@@ -62,7 +95,9 @@ class _GameState extends State<Game> {
           Align(
             alignment: Alignment.topRight,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                _open_end_game_popup();
+              },
               child: Container(
                 width: 40,
                 height: 40,
@@ -85,7 +120,9 @@ class _GameState extends State<Game> {
               child: Own_Button_2(
                 height: 30,
                 width: 150,
-                onPressed: () {},
+                onPressed: () {
+                  _open_sure_popup();
+                },
                 text: "SELECT",
               ),
             ),
