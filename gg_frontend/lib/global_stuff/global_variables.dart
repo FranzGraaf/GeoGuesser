@@ -1,5 +1,6 @@
 import 'dart:async';
 //import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
 
@@ -26,14 +27,8 @@ String global_default_user_image =
 final String firebase_bucket_link =
     "gs://fellowcoder-org-dev.appspot.com"; // "gs://fellowcoder-org-dev.appspot.com" // "gs://fellowcoder-org.appspot.com"
 
-//Global Data START--------------------------------------------------------------------------
-/*DB_User global_user_data;
-Map<String, dynamic> global_search_data;
-List<DB_User> global_results_list;
-//Global Data END--------------------------------------------------------------------------
-
 //Authentication START--------------------------------------------------------------------------
-final FirebaseAuth auth_firebase = FirebaseAuth.instance;*/
+final FirebaseAuth auth_firebase = FirebaseAuth.instance;
 //Authentication END--------------------------------------------------------------------------
 
 //Color variables START-----------------------------------------------------------------------

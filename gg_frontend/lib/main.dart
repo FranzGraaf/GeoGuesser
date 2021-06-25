@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/frame/cookie_banner.dart';
 import 'package:gg_frontend/frame/footer.dart';
@@ -16,7 +18,9 @@ import 'package:gg_frontend/pages/settings.dart';
 import 'package:gg_frontend/pages/splash_screen.dart';
 import 'package:gg_frontend/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -46,6 +50,50 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  @override
+  void initState() {
+    auth_firebase.authStateChanges().listen((User user) async {
+      print(user);
+      /*if (user == null && global_usertype != Usertype.visitor) {
+        print('User is currently signed out!');
+        try {
+          logout(); // logout just in case the id_token is still saved
+        } catch (e) {}
+        setState(() {
+          global_usertype = Usertype.visitor;
+        });
+      } else if (user != null && global_usertype != Usertype.user) {
+        print('User is signed in!');
+        if (global_user_data == null) {
+          global_user_data =
+              DB_User(); // prevents requesting the userdata again when the listener fires several times
+          var _user_data = null;
+          try {
+            _user_data = await Backend_Com().get_user();
+          } catch (e) {
+            _user_data = null;
+          }
+          if (_user_data == null) {
+            print('Sign out old user');
+            logout();
+            setState(() {
+              global_usertype = Usertype.visitor;
+            });
+            global_rebuild_controller.add(true);
+            return;
+          } else {
+            global_user_data = _user_data;
+          }
+        }
+        setState(() {
+          global_usertype = Usertype.user;
+        });
+        global_rebuild_controller.add(true);
+      }*/
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _screen_size = MediaQuery.of(context).size;
