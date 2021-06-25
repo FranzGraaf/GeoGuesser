@@ -45,7 +45,6 @@ Future<String> logout() async {
   auth_firebase.signOut();
   cookie.remove("id_token");
   cookie.remove("refresh_token");
-  global_userdata = null;
   return null;
 }
 

@@ -12,7 +12,7 @@ double global_mobile_treshold = 700;
 String global_active_route = "/";
 
 enum Usertype { visitor, user }
-Usertype global_usertype = Usertype.user; // usertype is visitor by default
+Usertype global_usertype = Usertype.visitor; // usertype is visitor by default
 DB_User global_userdata = DB_User();
 int global_total_players;
 

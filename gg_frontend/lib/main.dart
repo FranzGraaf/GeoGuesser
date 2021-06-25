@@ -7,6 +7,7 @@ import 'package:gg_frontend/frame/frame_pages/about_us.dart';
 import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
 import 'package:gg_frontend/frame/frame_pages/impressum.dart';
 import 'package:gg_frontend/frame/header.dart';
+import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/homepage.dart';
@@ -54,42 +55,15 @@ class _MainState extends State<Main> {
   void initState() {
     auth_firebase.authStateChanges().listen((User user) async {
       print(user);
-      /*if (user == null && global_usertype != Usertype.visitor) {
-        print('User is currently signed out!');
-        try {
-          logout(); // logout just in case the id_token is still saved
-        } catch (e) {}
-        setState(() {
-          global_usertype = Usertype.visitor;
-        });
-      } else if (user != null && global_usertype != Usertype.user) {
-        print('User is signed in!');
-        if (global_user_data == null) {
-          global_user_data =
-              DB_User(); // prevents requesting the userdata again when the listener fires several times
-          var _user_data = null;
-          try {
-            _user_data = await Backend_Com().get_user();
-          } catch (e) {
-            _user_data = null;
-          }
-          if (_user_data == null) {
-            print('Sign out old user');
-            logout();
-            setState(() {
-              global_usertype = Usertype.visitor;
-            });
-            global_rebuild_controller.add(true);
-            return;
-          } else {
-            global_user_data = _user_data;
-          }
-        }
-        setState(() {
-          global_usertype = Usertype.user;
-        });
+      if (user == null && global_usertype == Usertype.user) {
+        global_usertype = Usertype.visitor;
+        global_userdata = DB_User();
         global_rebuild_controller.add(true);
-      }*/
+      }
+      if (user != null && global_usertype == Usertype.visitor) {
+        //global_userdata = TODO: get userdata
+        global_usertype = Usertype.user;
+      }
     });
     super.initState();
   }
@@ -98,9 +72,9 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     Size _screen_size = MediaQuery.of(context).size;
     bool _on_mobile = _screen_size.width < global_mobile_treshold;
-    return Material(
-      color: Colors.transparent,
-      child: Stack(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
         children: [
           Background(),
           Column(

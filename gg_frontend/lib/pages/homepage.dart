@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_1.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
@@ -25,6 +26,9 @@ class _HomepageState extends State<Homepage> {
     global_language_streamController.stream.listen((data) {
       setState(() {});
     });
+    global_rebuild_controller.stream.listen((data) {
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -32,6 +36,8 @@ class _HomepageState extends State<Homepage> {
   void dispose() {
     global_language_streamController.close();
     global_language_streamController = StreamController.broadcast();
+    global_rebuild_controller.close();
+    global_rebuild_controller = StreamController.broadcast();
     super.dispose();
   }
 
@@ -49,7 +55,9 @@ class _HomepageState extends State<Homepage> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Login.route);
+                global_usertype == Usertype.visitor
+                    ? Navigator.of(context).pushNamed(Login.route)
+                    : Navigator.of(context).pushNamed(Profile.route);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -83,6 +91,32 @@ class _HomepageState extends State<Homepage> {
             ),
           ],
         ),
+        SizedBox(
+          height: 10,
+        ),
+        global_usertype == Usertype.user
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      logout();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(global_language == Global_Language.eng
+                            ? "logout"
+                            : "logout")
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
+              )
+            : Container(),
         Expanded(
           child: SizedBox(),
         ),
