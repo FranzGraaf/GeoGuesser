@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/frame/cookie_banner.dart';
 import 'package:gg_frontend/frame/footer.dart';
 import 'package:gg_frontend/frame/frame_pages/about_us.dart';
 import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
@@ -49,26 +50,31 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     Size _screen_size = MediaQuery.of(context).size;
     bool _on_mobile = _screen_size.width < global_mobile_treshold;
-    return Stack(
-      children: [
-        Background(),
-        Column(
-          children: [
-            Expanded(
-                child: Stack(
-              children: [
-                Material(
-                    color: Colors.transparent,
-                    child: SizedBox(
-                        width: _screen_size.width,
-                        child: get_main_widget(widget.arguments))),
-                Header(),
-              ],
-            )),
-            Footer()
-          ],
-        ),
-      ],
+    return Material(
+      color: Colors.transparent,
+      child: Stack(
+        children: [
+          Background(),
+          Column(
+            children: [
+              Expanded(
+                  child: Stack(
+                children: [
+                  SizedBox(
+                      width: _screen_size.width,
+                      child: get_main_widget(widget.arguments)),
+                  Header(),
+                ],
+              )),
+              Footer()
+            ],
+          ),
+          Align(
+            child: Cookie_Banner(),
+            alignment: Alignment.topCenter,
+          )
+        ],
+      ),
     );
   }
 }

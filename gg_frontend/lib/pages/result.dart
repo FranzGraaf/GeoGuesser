@@ -14,6 +14,25 @@ class Result extends StatefulWidget {
 }
 
 class _ResultState extends State<Result> {
+  int _result_points;
+  double _distance;
+
+  int _calc_result_points(double distance) {
+    for (double i in global_point_steps.keys) {
+      if (distance < i) {
+        return global_point_steps[i];
+      }
+    }
+    return 0;
+  }
+
+  @override
+  void initState() {
+    _distance = widget.arguments["distance"];
+    _result_points = _calc_result_points(_distance);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +50,7 @@ class _ResultState extends State<Result> {
               width: 30,
             ),
             Text(
-              widget.arguments["distance"].toString() + " km",
+              _distance.toStringAsFixed(3) + " km",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 40,
@@ -43,7 +62,7 @@ class _ResultState extends State<Result> {
           height: 30,
         ),
         Text(
-          "+ 10 Pts.",
+          "+ " + (_result_points ?? "-").toString() + " Pts.",
           style: TextStyle(
               color: Colors.black, fontSize: 40, fontWeight: FontWeight.bold),
         ),

@@ -11,6 +11,7 @@ class DB_User {
   String nickname;
   int points;
   int ranking;
+  String language;
 
   DB_User({
     this.id,
@@ -20,6 +21,7 @@ class DB_User {
     this.nickname,
     this.points,
     this.ranking,
+    this.language,
   });
 
   DB_User.fromJson(Map<String, dynamic> json) {
@@ -30,5 +32,6 @@ class DB_User {
     nickname = json['nickname'];
     points = json['points'];
     ranking = json['ranking'];
+    language = json['language'];
   }
 }

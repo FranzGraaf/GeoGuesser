@@ -1,6 +1,5 @@
 import 'dart:async';
 //import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
 
@@ -86,3 +85,33 @@ final Map<Global_Theme_Mode, Theme_Mode_Info> global_theme_mode_info = {
       Theme_Mode_Info(name: "dark", icon: Icons.wb_sunny_outlined),
 };
 //Theme Mode variables END-----------------------------------------------------------------------
+
+//Point Step variables START-----------------------------------------------------------------------
+Map<double, int> global_point_steps = {
+  0.5: 999,
+  1: 500,
+  10: 100,
+  20: 80,
+  30: 75,
+  50: 70,
+  100: 50,
+  200: 25,
+  300: 5
+}; // 0-0.5km distance => 999 Points; 0.5-1km distance => 500 Points; ...
+//Point Step variables END-----------------------------------------------------------------------
+
+//Location variables START-----------------------------------------------------------------------
+List<Location_Variable> global_location_variables = [
+  Location_Variable(
+      name_de: "Paris", name_en: "Paris", lat: 48.856613, lon: 2.352222),
+];
+
+class Location_Variable {
+  String name_de;
+  String name_en;
+  double lon;
+  double lat;
+  Location_Variable({this.name_de, this.name_en, this.lon, this.lat});
+}
+//Location variables END-----------------------------------------------------------------------
+
