@@ -27,7 +27,7 @@ class Basic_Image extends StatefulWidget {
       this.animation_duration = const Duration(milliseconds: 0),
       this.get_image_from_storage = false,
       this.key,
-      this.default_image_asset = "assets/images/image_default.jpeg",
+      this.default_image_asset = "assets/images/avatar_bild_200.png",
       this.maximize = false,
       this.fit = BoxFit.cover,
       this.child = const SizedBox(),
@@ -41,7 +41,7 @@ class _Basic_ImageState extends State<Basic_Image> {
   String _temp_image = "";
 
   void initialise() async {
-    _temp_image = await Backend_Com().get_image_from_storage(widget.image);
+    _temp_image = await Backend_Com().get_image_link_from_storage(widget.image);
     setState(() {});
   }
 

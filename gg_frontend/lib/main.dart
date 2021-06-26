@@ -8,6 +8,7 @@ import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
 import 'package:gg_frontend/frame/frame_pages/impressum.dart';
 import 'package:gg_frontend/frame/header.dart';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/homepage.dart';
@@ -15,13 +16,15 @@ import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
 import 'package:gg_frontend/pages/register.dart';
 import 'package:gg_frontend/pages/result.dart';
-import 'package:gg_frontend/pages/settings.dart';
+import 'package:gg_frontend/pages/game_settings.dart';
 import 'package:gg_frontend/pages/splash_screen.dart';
 import 'package:gg_frontend/router.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseFirestore.instance; // init firestore
   runApp(MyApp());
 }
 
@@ -51,20 +54,26 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  void _check_user(User user) async {
+    //print(user);
+    if (user == null && global_usertype == Usertype.user) {
+      global_userdata = DB_User();
+      global_usertype = Usertype.visitor;
+      global_rebuild_controller.add(true);
+    }
+    if (user != null && global_usertype == Usertype.visitor) {
+      global_userdata = await Backend_Com().get_user();
+      global_usertype = Usertype.user;
+      global_rebuild_controller.add(true);
+    }
+  }
+
   @override
   void initState() {
     auth_firebase.authStateChanges().listen((User user) async {
-      print(user);
-      if (user == null && global_usertype == Usertype.user) {
-        global_usertype = Usertype.visitor;
-        global_userdata = DB_User();
-        global_rebuild_controller.add(true);
-      }
-      if (user != null && global_usertype == Usertype.visitor) {
-        //global_userdata = TODO: get userdata
-        global_usertype = Usertype.user;
-      }
+      _check_user(user);
     });
+    _check_user(auth_firebase.currentUser);
     super.initState();
   }
 
@@ -109,8 +118,8 @@ Widget get_main_widget(var arguments) {
       return Splash_screen();
     case Homepage.route:
       return Homepage();
-    case Settings.route:
-      return Settings();
+    case Game_Settings.route:
+      return Game_Settings();
     case Profile.route:
       return Profile();
     case Login.route:

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
@@ -21,8 +22,8 @@ class _GameState extends State<Game> {
   double _target_lat;
   double _target_lon;
   String _target_name = "";
-  double _cursor_lat;
-  double _cursor_lon;
+  double _cursor_lat = 48;
+  double _cursor_lon = 3;
 
   Location_Variable _get_random_location() {
     return global_location_variables[
@@ -46,17 +47,35 @@ class _GameState extends State<Game> {
     });
   }
 
-  void _open_sure_popup() {
+  void _open_sure_popup() async {
     showDialog(
         context: context,
         builder: (_) {
           return Sure_Popup();
-        }).then((value) {
+        }).then((value) async {
       if (value ?? false) {
-        Navigator.of(context).pushReplacementNamed(Result.route,
-            arguments: {"distance": _calc_distance()});
+        double _distance = _calc_distance();
+        int _points = _calc_result_points(_distance);
+        if ((await Backend_Com()
+                .change_userdata("points", global_userdata.points + _points) ==
+            "ok")) {
+          global_userdata.points += _points;
+        }
+        Navigator.of(context).pushReplacementNamed(Result.route, arguments: {
+          "distance": _distance,
+          "points": _points,
+        });
       } else {}
     });
+  }
+
+  int _calc_result_points(double distance) {
+    for (double i in global_point_steps.keys) {
+      if (distance < i) {
+        return global_point_steps[i];
+      }
+    }
+    return 0;
   }
 
   @override

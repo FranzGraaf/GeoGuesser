@@ -17,19 +17,12 @@ class _ResultState extends State<Result> {
   int _result_points;
   double _distance;
 
-  int _calc_result_points(double distance) {
-    for (double i in global_point_steps.keys) {
-      if (distance < i) {
-        return global_point_steps[i];
-      }
-    }
-    return 0;
-  }
-
   @override
   void initState() {
-    _distance = widget.arguments["distance"];
-    _result_points = _calc_result_points(_distance);
+    if (widget.arguments != null) {
+      _distance = widget.arguments["distance"];
+      _result_points = widget.arguments["points"];
+    }
     super.initState();
   }
 
@@ -50,7 +43,7 @@ class _ResultState extends State<Result> {
               width: 30,
             ),
             Text(
-              _distance.toStringAsFixed(3) + " km",
+              (_distance ?? 0.0).toStringAsFixed(3) + " km",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 40,

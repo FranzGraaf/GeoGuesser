@@ -32,7 +32,7 @@ class _Cookie_BannerState extends State<Cookie_Banner> {
       width: 300,
       height: _expanded ? 101 : 0,
       decoration: BoxDecoration(
-          color: global_color_1.withOpacity(0.5),
+          color: Colors.white.withOpacity(0.5),
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10))),
@@ -57,7 +57,7 @@ class _Cookie_BannerState extends State<Cookie_Banner> {
               width: 280,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: global_color_1, // background
+                    primary: global_color_2, // background
                     onPrimary: Colors.black, // foreground
                   ),
                   onPressed: () {

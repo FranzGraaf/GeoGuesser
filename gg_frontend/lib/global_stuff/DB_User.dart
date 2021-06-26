@@ -12,6 +12,7 @@ class DB_User {
   int points;
   int ranking;
   String language;
+  bool show_in_ranking;
 
   DB_User({
     this.id,
@@ -22,6 +23,7 @@ class DB_User {
     this.points,
     this.ranking,
     this.language,
+    this.show_in_ranking,
   });
 
   DB_User.fromJson(Map<String, dynamic> json) {
@@ -33,5 +35,6 @@ class DB_User {
     points = json['points'];
     ranking = json['ranking'];
     language = json['language'];
+    show_in_ranking = json['show_in_ranking'];
   }
 }

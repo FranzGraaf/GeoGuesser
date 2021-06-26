@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/DB_User.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
@@ -104,7 +106,7 @@ class _RegisterState extends State<Register> {
         Expanded(
           child: SizedBox(),
         ),
-        _loading
+        /*_loading
             ? CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(global_color_1))
             : Own_Button_2(
@@ -127,7 +129,7 @@ class _RegisterState extends State<Register> {
                     )
                   ],
                 ),
-              ),
+              ),*/
         SizedBox(
           height: 15,
         ),
@@ -152,7 +154,24 @@ class _RegisterState extends State<Register> {
                         duration: Duration(milliseconds: 1500),
                       ));
                     } else {
-                      // TODO: create userdata
+                      // create init user for DB ----
+                      Map<String, dynamic> _init_user = {
+                        "image_url": null,
+                        "image_name": null,
+                        "nickname": "Nickname",
+                        "points": 0,
+                        "ranking": null,
+                        "language": global_language == Global_Language.ger
+                            ? "german"
+                            : "english",
+                        "show_in_ranking": true,
+                      };
+                      var _ret = await Backend_Com().create_user(_init_user);
+                      print(_ret);
+                      // add data for global_userdata ----
+                      _init_user["id"] = _ret;
+                      _init_user["verified"] = false;
+                      global_userdata = DB_User.fromJson(_init_user);
                       Navigator.of(context).pushNamed(Homepage.route);
                     }
                   }

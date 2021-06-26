@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/DB_User.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
@@ -68,7 +70,11 @@ class _LoginState extends State<Login> {
         Expanded(
           child: SizedBox(),
         ),
-        Own_Button_2(
+        /*_loading
+            ? CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(global_color_1),
+              )
+            :Own_Button_2(
           onPressed: () {},
           color: Colors.white,
           child: Row(
@@ -86,7 +92,7 @@ class _LoginState extends State<Login> {
               )
             ],
           ),
-        ),
+        ),*/
         SizedBox(
           height: 15,
         ),
@@ -111,10 +117,10 @@ class _LoginState extends State<Login> {
                       duration: Duration(milliseconds: 1500),
                     ));
                   } else {
-                    //TODO: get userdata
+                    global_userdata =
+                        await Backend_Com().get_user() ?? DB_User();
                     Navigator.of(context).popAndPushNamed(Homepage.route);
                   }
-
                   setState(() {
                     _loading = false;
                   });

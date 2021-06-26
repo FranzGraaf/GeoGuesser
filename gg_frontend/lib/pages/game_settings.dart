@@ -1,19 +1,37 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_page_language_switch.dart';
+import 'package:gg_frontend/pages/homepage.dart';
+import 'package:gg_frontend/popups/sure_popup.dart';
 
-class Settings extends StatefulWidget {
+class Game_Settings extends StatefulWidget {
   static const String route = '/settings';
-  const Settings({Key key}) : super(key: key);
+  const Game_Settings({Key key}) : super(key: key);
 
   @override
-  _SettingsState createState() => _SettingsState();
+  _Game_SettingsState createState() => _Game_SettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class _Game_SettingsState extends State<Game_Settings> {
+  void _open_sure_popup() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return Sure_Popup();
+        }).then((value) {
+      if (value ?? false) {
+        //TODO: delete profile
+        Navigator.of(context).pushReplacementNamed(
+          Homepage.route,
+        );
+      } else {}
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -28,8 +46,15 @@ class _SettingsState extends State<Settings> {
       children: [
         Expanded(child: SizedBox()),
         Own_Page_Language_Switch(
-          on_change: () {
-            setState(() {});
+          on_change: (value) async {
+            String _new_lan =
+                value == Global_Language.eng ? "english" : "german";
+            if (await Backend_Com().change_userdata("language", _new_lan) ==
+                "ok") {
+              setState(() {
+                global_userdata.language = _new_lan;
+              });
+            }
           },
         ),
         SizedBox(
@@ -51,12 +76,16 @@ class _SettingsState extends State<Settings> {
                     width: 10,
                   ),
                   Checkbox(
-                      value: global_show_in_ranking,
+                      value: global_userdata.show_in_ranking,
                       fillColor: MaterialStateProperty.all(global_color_1),
-                      onChanged: (value) {
-                        setState(() {
-                          global_show_in_ranking = value;
-                        });
+                      onChanged: (value) async {
+                        if (await Backend_Com()
+                                .change_userdata("show_in_ranking", value) ==
+                            "ok") {
+                          setState(() {
+                            global_userdata.show_in_ranking = value;
+                          });
+                        }
                       })
                 ],
               )
@@ -64,7 +93,9 @@ class _SettingsState extends State<Settings> {
         Expanded(child: SizedBox()),
         global_usertype == Usertype.user
             ? Own_Button_2(
-                onPressed: () {},
+                onPressed: () {
+                  _open_sure_popup();
+                },
                 color: global_color_2,
                 width: 180,
                 height: 30,

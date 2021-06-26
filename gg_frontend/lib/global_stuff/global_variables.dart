@@ -25,7 +25,7 @@ String global_default_user_image =
 
 // Firebase Storage Bucket Link
 final String firebase_bucket_link =
-    "gs://fellowcoder-org-dev.appspot.com"; // "gs://fellowcoder-org-dev.appspot.com" // "gs://fellowcoder-org.appspot.com"
+    "gs://geoguesser-bccbe.appspot.com"; // "gs://geoguesser-bccbe.appspot.com"
 
 //Authentication START--------------------------------------------------------------------------
 final FirebaseAuth auth_firebase = FirebaseAuth.instance;

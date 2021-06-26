@@ -12,7 +12,7 @@ import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
 import 'package:gg_frontend/pages/register.dart';
 import 'package:gg_frontend/pages/result.dart';
-import 'package:gg_frontend/pages/settings.dart';
+import 'package:gg_frontend/pages/game_settings.dart';
 import 'package:gg_frontend/pages/splash_screen.dart';
 
 class Header extends StatefulWidget {
@@ -42,7 +42,7 @@ class _HeaderState extends State<Header> {
         home_visible = false;
         text = global_language == Global_Language.eng ? "" : "";
         return;
-      case Settings.route:
+      case Game_Settings.route:
         visible = true;
         home_visible = true;
         text = global_language == Global_Language.eng

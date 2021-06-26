@@ -10,7 +10,7 @@ import 'package:gg_frontend/main.dart';
 import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
-import 'package:gg_frontend/pages/settings.dart';
+import 'package:gg_frontend/pages/game_settings.dart';
 
 class Homepage extends StatefulWidget {
   static const String route = '/homepage';
@@ -173,7 +173,7 @@ class _HomepageState extends State<Homepage> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Settings.route);
+                Navigator.of(context).pushNamed(Game_Settings.route);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,

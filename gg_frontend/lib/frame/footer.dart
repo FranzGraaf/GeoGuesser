@@ -12,7 +12,7 @@ import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
 import 'package:gg_frontend/pages/register.dart';
 import 'package:gg_frontend/pages/result.dart';
-import 'package:gg_frontend/pages/settings.dart';
+import 'package:gg_frontend/pages/game_settings.dart';
 import 'package:gg_frontend/pages/splash_screen.dart';
 
 class Footer extends StatefulWidget {
@@ -35,7 +35,7 @@ class _FooterState extends State<Footer> {
       case Homepage.route:
         visible = true;
         return;
-      case Settings.route:
+      case Game_Settings.route:
         visible = true;
         return;
       case Profile.route:

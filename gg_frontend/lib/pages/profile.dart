@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
+import 'package:gg_frontend/global_stuff/own_widgets/image_web_picker.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_submittable_text_input.dart';
 
@@ -41,12 +43,40 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 50,
           ),
-          ClipOval(
+          /*ClipOval(
               child: Image.network(
             global_userdata.image_url ?? global_default_user_image,
             width: 200,
             height: 200,
-          )),
+          )),*/
+          Image_Web_Picker(
+            key: ValueKey(global_userdata.image_url),
+            image: global_userdata.image_url,
+            old_image_path: global_userdata.image_name,
+            upload_begins: () {},
+            upload_done: (name, link) async {
+              if ((await Backend_Com().change_userdata("image_name", name)) ==
+                      "ok" &&
+                  await Backend_Com().change_userdata("image_url", link) ==
+                      "ok") {
+                setState(() {
+                  global_userdata.image_name = name;
+                  global_userdata.image_url = link;
+                });
+              }
+            },
+            picture_deleted: (name) async {
+              if ((await Backend_Com().change_userdata("image_name", null)) ==
+                      "ok" &&
+                  await Backend_Com().change_userdata("image_url", null) ==
+                      "ok") {
+                setState(() {
+                  global_userdata.image_name = null;
+                  global_userdata.image_url = null;
+                });
+              }
+            },
+          ),
           SizedBox(
             height: 10,
           ),
@@ -56,7 +86,12 @@ class _ProfileState extends State<Profile> {
               _name_controller,
               max_lines: 1,
               on_changed: (value) {},
-              submitted: (value) {},
+              submitted: (value) async {
+                if (await Backend_Com().change_userdata("nickname", value) ==
+                    "ok") {
+                  global_userdata.nickname = value;
+                }
+              },
               aborted: () {},
               text_style: TextStyle(
                   color: Colors.white,
@@ -79,7 +114,7 @@ class _ProfileState extends State<Profile> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                (runtimeType == Global_Language.eng ? "RANK: " : "RANG: ") +
+                (global_language == Global_Language.eng ? "RANK: " : "RANG: ") +
                     (global_userdata.ranking ?? "-").toString(),
                 style: TextStyle(
                     color: Colors.white,

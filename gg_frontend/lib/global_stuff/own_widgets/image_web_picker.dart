@@ -1,10 +1,9 @@
-import 'package:Fellowcoder_Frontend/global_stuff/backend_com.dart';
-import 'package:Fellowcoder_Frontend/global_stuff/global_variables.dart';
-import 'package:Fellowcoder_Frontend/global_stuff/own_widgets/basic_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:firebase/firebase.dart' as fb;
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
+import 'package:gg_frontend/global_stuff/own_widgets/basic_image.dart';
 
 class Image_Web_Picker extends StatefulWidget {
   String image; //"assets/images/default_pic.png"
@@ -16,6 +15,7 @@ class Image_Web_Picker extends StatefulWidget {
   Duration animation_duration;
   bool get_image_from_storage;
   Function() upload_begins;
+
   Function(String name, String link) upload_done; // name is the storage path
   Function(String name) picture_deleted; // name is the storage path
   ValueKey key;
@@ -35,14 +35,14 @@ class Image_Web_Picker extends StatefulWidget {
     this.margin = const EdgeInsets.all(0),
     this.animation_duration = const Duration(milliseconds: 0),
     this.get_image_from_storage = false,
-    this.upload_begins,
-    this.upload_done,
-    this.picture_deleted,
+    @required this.upload_begins,
+    @required this.upload_done,
+    @required this.picture_deleted,
     this.key,
     this.old_image_path,
     this.add_icon_alignment = Alignment.center,
     this.edit_icon_alignment = Alignment.topLeft,
-    this.default_image_asset = "assets/images/image_default.jpeg",
+    this.default_image_asset = "assets/images/avatar_bild_200.png",
     this.shadow = false,
     /*this.delete_icon_alignment = Alignment.topRight*/
   });
@@ -75,28 +75,28 @@ class _Image_Web_PickerState extends State<Image_Web_Picker> {
         userId = "visitor_id";
         break;
       case Usertype.user:
-        userId = global_user_data.id;
+        userId = global_userdata.id;
         break;
       default:
         userId = "error_no_user_or_visitor";
     }
     final path = '$userId/$dateTime';
     _uploadImage(
-      onSelected: (file) {
+      onSelected: (file) async {
         widget.upload_begins();
-        fb // upload new image
+        await fb // upload new image
             .storage()
             .refFromURL(firebase_bucket_link)
             .child(path)
             .put(file)
             .future
             .then((_) async {
-          String _link = await Backend_Com().get_image_from_storage(path);
+          String _link = await Backend_Com().get_image_link_from_storage(path);
           widget.upload_done(path, _link);
         });
         if (widget.old_image_path == null || widget.old_image_path == "") {
         } else {
-          fb // delete old image only  when old_image_path is set
+          await fb // delete old image only  when old_image_path is set
               .storage()
               .refFromURL(firebase_bucket_link)
               .child(widget.old_image_path)
@@ -107,7 +107,7 @@ class _Image_Web_PickerState extends State<Image_Web_Picker> {
   }
 
   void _deleteFromStorage() async {
-    fb // delete old image only  when old_image_path is set
+    await fb // delete old image only  when old_image_path is set
         .storage()
         .refFromURL(firebase_bucket_link)
         .child(widget.old_image_path)
