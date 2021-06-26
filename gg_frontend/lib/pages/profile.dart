@@ -15,7 +15,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   TextEditingController _name_controller = TextEditingController();
-  List<Map<String, dynamic>> _ranking_list = [
+  /*List<Map<String, dynamic>>*/ var _ranking_list = [];
+  /* = [
     {"number": 40, "name": "Tom", "points": 780},
     {"number": 41, "name": "Tom", "points": 777},
     {"number": 42, "name": "Tom", "points": 775},
@@ -24,13 +25,34 @@ class _ProfileState extends State<Profile> {
     {"number": 45, "name": "Tom", "points": 771},
     {"number": 46, "name": "Tom", "points": 770},
     {"number": 47, "name": "Tom", "points": 756},
-    {"number": 48, "name": "Tom", "points": 755},
+    {"number": 48, "name": "Tom", "points": 755}, 
     {"number": 49, "name": "Tom", "points": 753},
-  ];
+  ];*/
+
+  void _get_ranklist(int rank) async {
+    var temp = await Backend_Com().get_ranklist(rank);
+    if (temp == "nok") {
+      _ranking_list = [];
+    } else {
+      _ranking_list = temp;
+    }
+    setState(() {});
+  }
+
+  void initialise() async {
+    global_total_players = await Backend_Com().get_total_players();
+    if (global_usertype == Usertype.user) {
+      global_userdata.ranking =
+          await Backend_Com().get_ranking(global_userdata.points);
+    }
+    setState(() {});
+    _get_ranklist(global_userdata.ranking);
+  }
 
   @override
   void initState() {
     _name_controller.text = global_userdata.nickname ?? "-";
+    initialise();
     super.initState();
   }
 
@@ -137,14 +159,18 @@ class _ProfileState extends State<Profile> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Own_Button_3(
-                onPressed: () {},
+                onPressed: () {
+                  _get_ranklist(1);
+                },
                 text: global_language == Global_Language.eng ? "1st" : "1.",
               ),
               SizedBox(
                 width: 10,
               ),
               Own_Button_3(
-                onPressed: () {},
+                onPressed: () {
+                  _get_ranklist(global_userdata.ranking);
+                },
                 text: (global_userdata.ranking ?? "-").toString() +
                     (global_language == Global_Language.eng
                         ? ". (you)"
@@ -155,7 +181,7 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 20,
           ),
-          for (Map<String, dynamic> i in _ranking_list)
+          for (Map<String, dynamic> i in _ranking_list ?? [])
             Profile_Element(
               number: i["number"],
               name: i["name"],

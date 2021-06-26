@@ -55,29 +55,33 @@ class Backend_Com {
     return _response;
   }
 
-  Future delete_profile(int additional_points) async {
-    //TODO:
-    String url = _be_url + "/delete_profile";
+  Future delete_user() async {
+    String url = _be_url + "/delete_user";
     Map<String, dynamic> data = {};
     var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
     return _response;
   }
 
-  Future add_points(int additional_points) async {
-    //TODO:
-    String url = _be_url + "/add_points";
-    Map<String, dynamic> data = {};
-    var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
-    return _response;
-  }
-
-  Future get_ranking() async {
-    //TODO:
+  Future get_ranking(int points) async {
     String url = _be_url + "/get_ranking";
+    Map<String, dynamic> data = {"points": points};
+    var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
+    return _response;
+  }
+
+  Future get_total_players() async {
+    String url = _be_url + "/get_total_players";
     Map<String, dynamic> data = {};
     var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
     return _response;
   }
 
+  Future get_ranklist(int rank) async {
+    String url = _be_url + "/get_ranklist";
+    Map<String, dynamic> data = {"rank": rank};
+    var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
+    print(_response);
+    return _response;
+  }
 // END interactions ----------------------------------------------------------
 }

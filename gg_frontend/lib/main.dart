@@ -57,13 +57,13 @@ class _MainState extends State<Main> {
   void _check_user(User user) async {
     //print(user);
     if (user == null && global_usertype == Usertype.user) {
-      global_userdata = DB_User();
       global_usertype = Usertype.visitor;
+      global_userdata = DB_User();
       global_rebuild_controller.add(true);
     }
     if (user != null && global_usertype == Usertype.visitor) {
-      global_userdata = await Backend_Com().get_user();
       global_usertype = Usertype.user;
+      global_userdata = await Backend_Com().get_user();
       global_rebuild_controller.add(true);
     }
   }

@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:cooky/cooky.dart' as cookie;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/KEYS.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:http/http.dart' as http;
@@ -45,6 +46,7 @@ Future<String> logout() async {
   auth_firebase.signOut();
   cookie.remove("id_token");
   cookie.remove("refresh_token");
+  global_userdata = DB_User();
   return null;
 }
 

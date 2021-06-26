@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/backend_com.dart';
+import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_page_language_switch.dart';
@@ -22,12 +23,23 @@ class _Game_SettingsState extends State<Game_Settings> {
         context: context,
         builder: (_) {
           return Sure_Popup();
-        }).then((value) {
+        }).then((value) async {
       if (value ?? false) {
-        //TODO: delete profile
-        Navigator.of(context).pushReplacementNamed(
-          Homepage.route,
-        );
+        if ((await Backend_Com().delete_user()) == "ok") {
+          logout();
+          Navigator.of(context).pushReplacementNamed(
+            Homepage.route,
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: Duration(milliseconds: 1000),
+              content: Text(
+                global_language == Global_Language.eng
+                    ? "something went wrong"
+                    : "etwas ist schief gelaufen",
+                textAlign: TextAlign.center,
+              )));
+        }
       } else {}
     });
   }

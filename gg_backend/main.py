@@ -82,8 +82,34 @@ def get_user():
 @app.route('/change_userdata', methods=["POST", "GET"])
 def change_userdata():
     user_id = get_uid()
+    if user_id == None: return jsonify("nok")
     data = get_request_data()
     return jsonify(db.change_userdata(user_id, data["key"], data["value"]))
+
+@app.route('/delete_user', methods=["POST", "GET"])
+def delete_user():
+    user_id = get_uid()
+    if user_id == None: return jsonify("nok")
+    data = get_request_data()
+    return jsonify(db.delete_user(user_id))
+
+@app.route('/get_ranking', methods=["POST", "GET"])
+def get_ranking():
+    user_id = get_uid()
+    data = get_request_data()
+    if user_id == None: return jsonify("nok")
+    return jsonify(db.get_ranking(user_id, data["points"]))
+
+@app.route('/get_total_players', methods=["POST", "GET"])
+def get_total_players():
+    data = get_request_data()
+    return jsonify(db.get_total_players())
+    return jsonify("nok")
+
+@app.route('/get_ranklist', methods=["POST", "GET"])
+def get_ranklist():
+    data = get_request_data()
+    return jsonify(db.get_ranklist(data["rank"]))
 # END interactions --------------------------------------------------------------------------------------------------------------------
 
 

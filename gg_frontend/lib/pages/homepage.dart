@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_1.dart';
@@ -21,6 +22,15 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  void initialise() async {
+    global_total_players = await Backend_Com().get_total_players();
+    if (global_usertype == Usertype.user) {
+      global_userdata.ranking =
+          await Backend_Com().get_ranking(global_userdata.points);
+    }
+    setState(() {});
+  }
+
   @override
   void initState() {
     global_language_streamController.stream.listen((data) {
@@ -29,6 +39,7 @@ class _HomepageState extends State<Homepage> {
     global_rebuild_controller.stream.listen((data) {
       setState(() {});
     });
+    initialise();
     super.initState();
   }
 
