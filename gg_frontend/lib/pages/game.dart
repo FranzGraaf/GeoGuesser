@@ -1,14 +1,19 @@
+import 'dart:async';
+import 'dart:html';
 import 'dart:math';
-
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:gg_frontend/global_stuff/KEYS.dart';
 import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
+import 'package:gg_frontend/global_stuff/own_widgets/google_map.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
 import 'package:gg_frontend/pages/homepage.dart';
 import 'package:gg_frontend/pages/result.dart';
 import 'package:gg_frontend/popups/end_game_popup.dart';
 import 'package:gg_frontend/popups/sure_popup.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class Game extends StatefulWidget {
   static const String route = '/game';
@@ -22,8 +27,8 @@ class _GameState extends State<Game> {
   double _target_lat;
   double _target_lon;
   String _target_name = "";
-  double _cursor_lat = 48;
-  double _cursor_lon = 3;
+  double _cursor_lat;
+  double _cursor_lon;
 
   Location_Variable _get_random_location() {
     return global_location_variables[
@@ -56,10 +61,12 @@ class _GameState extends State<Game> {
       if (value ?? false) {
         double _distance = _calc_distance();
         int _points = _calc_result_points(_distance);
-        if ((await Backend_Com()
-                .change_userdata("points", global_userdata.points + _points) ==
-            "ok")) {
-          global_userdata.points += _points;
+        if (global_usertype == Usertype.user) {
+          if ((await Backend_Com().change_userdata(
+                  "points", global_userdata.points + _points) ==
+              "ok")) {
+            global_userdata.points += _points;
+          }
         }
         Navigator.of(context).pushReplacementNamed(Result.route, arguments: {
           "distance": _distance,
@@ -85,7 +92,19 @@ class _GameState extends State<Game> {
     _target_lon = _loc.lon;
     _target_name =
         global_language == Global_Language.eng ? _loc.name_en : _loc.name_de;
+
+    streamController_set_marker.stream.listen((event) {
+      _cursor_lat = event[0];
+      _cursor_lon = event[1];
+    });
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    streamController_set_marker.close();
+    streamController_set_marker = StreamController.broadcast();
+    super.deactivate();
   }
 
   @override
@@ -98,8 +117,11 @@ class _GameState extends State<Game> {
       child: Stack(
         children: [
           Container(
-            color: Colors.lightBlueAccent,
-          ),
+              color: Colors.lightBlueAccent,
+              child: GoogleMap(
+                init_lat: 0,
+                init_lng: 0,
+              )),
           Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -140,21 +162,23 @@ class _GameState extends State<Game> {
           ),
           Align(
             alignment: Alignment.topRight,
-            child: GestureDetector(
-              onTap: () {
-                _open_end_game_popup();
-              },
-              child: Container(
-                width: 40,
-                height: 40,
-                padding: EdgeInsets.only(bottom: 5, left: 5),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(width: 1, color: Colors.black),
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(40))),
-                child: Icon(
-                  Icons.exit_to_app,
+            child: PointerInterceptor(
+              child: GestureDetector(
+                onTap: () {
+                  _open_end_game_popup();
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  padding: EdgeInsets.only(bottom: 5, left: 5),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(width: 1, color: Colors.black),
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(40))),
+                  child: Icon(
+                    Icons.exit_to_app,
+                  ),
                 ),
               ),
             ),
@@ -163,24 +187,26 @@ class _GameState extends State<Game> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 15),
-              child: Own_Button_2(
-                height: 30,
-                width: 150,
-                onPressed: () {
-                  if (_cursor_lat == null || _cursor_lon == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        duration: Duration(milliseconds: 1000),
-                        content: Text(
-                          global_language == Global_Language.eng
-                              ? "Set cursor"
-                              : "Markierung setzen",
-                          textAlign: TextAlign.center,
-                        )));
-                  } else {
-                    _open_sure_popup();
-                  }
-                },
-                text: "SELECT",
+              child: PointerInterceptor(
+                child: Own_Button_2(
+                  height: 30,
+                  width: 150,
+                  onPressed: () {
+                    if (_cursor_lat == null || _cursor_lon == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: Duration(milliseconds: 1000),
+                          content: Text(
+                            global_language == Global_Language.eng
+                                ? "Set cursor"
+                                : "Markierung setzen",
+                            textAlign: TextAlign.center,
+                          )));
+                    } else {
+                      _open_sure_popup();
+                    }
+                  },
+                  text: "SELECT",
+                ),
               ),
             ),
           )
