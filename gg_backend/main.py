@@ -12,9 +12,15 @@ from db_init import DB_Init_Read_Write
 
 
 
+#
+#
+#
+development = True # development: True, production: False
+#
+#
+#
 # if error: return < jsonify("nok") > else return data or < jsonify("ok") >
 debug=True
-development = True # development: True, production: False
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 db = DB_Init_Read_Write()

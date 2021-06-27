@@ -17,9 +17,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String _email = "a.a@a.de"; // TODO: empty string "", value just for testing
-  String _password = "123456"; // TODO: empty string "", value just for testing
+  String _email = "";
+  String _password = "";
   bool _loading = false;
+
+  @override
+  void initState() {
+    if (DEVELOPMENT) {
+      _email = "a.a@a.de";
+      _password = "123456";
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

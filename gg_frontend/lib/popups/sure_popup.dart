@@ -13,10 +13,10 @@ class Sure_Popup extends StatefulWidget {
 class _Sure_PopupState extends State<Sure_Popup> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: PointerInterceptor(
+    return PointerInterceptor(
+      child: Stack(
+        children: [
+          Center(
             child: Container(
               width: 260,
               height: 200,
@@ -55,8 +55,8 @@ class _Sure_PopupState extends State<Sure_Popup> {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
