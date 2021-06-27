@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
+import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:http/http.dart' as http;
 import 'package:cooky/cooky.dart' as cookie;
 
 class Backend_Com {
-  static String _be_url =
-      "http://127.0.0.1:5000"; // http://127.0.0.1:5000 // https://python-be-xql2dlgaqa-ey.a.run.app (production)
+  static String _be_url = DEVELOPMENT
+      ? "http://127.0.0.1:5000"
+      : "https://geoguesser-be-run-liw4rmhvna-ey.a.run.app"; // http://127.0.0.1:5000 // https://geoguesser-be-run-liw4rmhvna-ey.a.run.app (production)
 
   Future getdata(String url) async {
     refresh_id_token();

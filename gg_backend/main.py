@@ -14,6 +14,7 @@ from db_init import DB_Init_Read_Write
 
 # if error: return < jsonify("nok") > else return data or < jsonify("ok") >
 debug=True
+development = True # development: True, production: False
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 db = DB_Init_Read_Write()
@@ -114,5 +115,5 @@ def get_ranklist():
 
 
 
-app.run() # for development
-#app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080))) # for production
+if development: app.run() # for development
+else: app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080))) # for production
