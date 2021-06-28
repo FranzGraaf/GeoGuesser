@@ -23,16 +23,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cooky:
   intl:
   http:
   firebase_core:
   firebase_auth:
   google_sign_in:
-  firebase:
   cloud_firestore:
-  google_maps:
   pointer_interceptor:
+  cooky: #web
+  firebase: #web
+  google_maps: #web
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -51,6 +51,7 @@ class _GoogleMapState extends State<GoogleMap> {
         ..streetViewControl = false
         ..mapTypeControl = false
         ..panControl = false
+        ..fullscreenControl = false
         ..zoomControl = false;
 
       DivElement elem = DivElement()

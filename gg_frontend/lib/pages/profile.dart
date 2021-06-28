@@ -71,34 +71,40 @@ class _ProfileState extends State<Profile> {
             width: 200,
             height: 200,
           )),*/
-          Image_Web_Picker(
-            key: ValueKey(global_userdata.image_url),
-            image: global_userdata.image_url,
-            old_image_path: global_userdata.image_name,
-            upload_begins: () {},
-            upload_done: (name, link) async {
-              if ((await Backend_Com().change_userdata("image_name", name)) ==
-                      "ok" &&
-                  await Backend_Com().change_userdata("image_url", link) ==
-                      "ok") {
-                setState(() {
-                  global_userdata.image_name = name;
-                  global_userdata.image_url = link;
-                });
-              }
-            },
-            picture_deleted: (name) async {
-              if ((await Backend_Com().change_userdata("image_name", null)) ==
-                      "ok" &&
-                  await Backend_Com().change_userdata("image_url", null) ==
-                      "ok") {
-                setState(() {
-                  global_userdata.image_name = null;
-                  global_userdata.image_url = null;
-                });
-              }
-            },
-          ),
+          global_device == Device.web
+              ? Image_Web_Picker(
+                  key: ValueKey(global_userdata.image_url),
+                  image: global_userdata.image_url,
+                  old_image_path: global_userdata.image_name,
+                  upload_begins: () {},
+                  upload_done: (name, link) async {
+                    if ((await Backend_Com()
+                                .change_userdata("image_name", name)) ==
+                            "ok" &&
+                        await Backend_Com()
+                                .change_userdata("image_url", link) ==
+                            "ok") {
+                      setState(() {
+                        global_userdata.image_name = name;
+                        global_userdata.image_url = link;
+                      });
+                    }
+                  },
+                  picture_deleted: (name) async {
+                    if ((await Backend_Com()
+                                .change_userdata("image_name", null)) ==
+                            "ok" &&
+                        await Backend_Com()
+                                .change_userdata("image_url", null) ==
+                            "ok") {
+                      setState(() {
+                        global_userdata.image_name = null;
+                        global_userdata.image_url = null;
+                      });
+                    }
+                  },
+                )
+              : Container(),
           SizedBox(
             height: 10,
           ),

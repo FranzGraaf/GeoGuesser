@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cooky/cooky.dart' as cookie;
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/main.dart';
 import 'package:gg_frontend/pages/login.dart';

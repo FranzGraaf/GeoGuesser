@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -118,10 +117,12 @@ class _GameState extends State<Game> {
         children: [
           Container(
               color: Colors.lightBlueAccent,
-              child: GoogleMap(
-                init_lat: 0,
-                init_lng: 0,
-              )),
+              child: global_device == Device.web
+                  ? GoogleMap(
+                      init_lat: 0,
+                      init_lng: 0,
+                    )
+                  : Container()),
           Align(
             alignment: Alignment.topCenter,
             child: Container(

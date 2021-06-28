@@ -1,5 +1,4 @@
 import 'dart:async';
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
@@ -7,14 +6,14 @@ import 'package:gg_frontend/global_stuff/DB_User.dart';
 //
 //
 //
-bool DEVELOPMENT = false;
+bool DEVELOPMENT = true;
 //
-//
-//
-
 enum Device { android, ios, web }
 Device global_device = Device
     .web; // set the target device to aktivate or deactivate the according parts of the codes
+//
+//
+//
 
 double global_mobile_treshold = 700;
 String global_active_route = "/";

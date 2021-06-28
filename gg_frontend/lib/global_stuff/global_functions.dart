@@ -1,10 +1,7 @@
-/*import 'package:Fellowcoder_Frontend/global_stuff/KEYS.dart';
-import 'package:Fellowcoder_Frontend/global_stuff/global_variables.dart';
-import 'package:firebase_auth/firebase_auth.dart';*/
 import 'dart:math';
-
-import 'package:cooky/cooky.dart' as cookie;
+import 'package:cooky/cooky.dart' if (dart.library.io) "" as cookie;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/KEYS.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
@@ -17,8 +14,10 @@ Future<String> registerWithEmailPassword(String email, String password) async {
     await auth_firebase.createUserWithEmailAndPassword(
         email: email, password: password);
     String _id_token = await auth_firebase.currentUser.getIdToken();
-    cookie.set("id_token", _id_token);
-    cookie.set("refresh_token", auth_firebase.currentUser.refreshToken);
+    if (global_device == Device.web) {
+      cookie.set("id_token", _id_token);
+      cookie.set("refresh_token", auth_firebase.currentUser.refreshToken);
+    } else {}
     return _id_token;
   } on FirebaseAuthException catch (e) {
     print(e.message);
@@ -33,8 +32,10 @@ Future<String> signInWithEmailPassword(String email, String password) async {
       password: password,
     );
     String id_token = await auth_firebase.currentUser.getIdToken();
-    cookie.set("id_token", id_token);
-    cookie.set("refresh_token", auth_firebase.currentUser.refreshToken);
+    if (global_device == Device.web) {
+      cookie.set("id_token", id_token);
+      cookie.set("refresh_token", auth_firebase.currentUser.refreshToken);
+    } else {}
     return id_token;
   } on FirebaseAuthException catch (e) {
     print(e.message);
@@ -44,8 +45,10 @@ Future<String> signInWithEmailPassword(String email, String password) async {
 
 Future<String> logout() async {
   auth_firebase.signOut();
-  cookie.remove("id_token");
-  cookie.remove("refresh_token");
+  if (global_device == Device.web) {
+    cookie.remove("id_token");
+    cookie.remove("refresh_token");
+  } else {}
   global_userdata = DB_User();
   return null;
 }
@@ -68,7 +71,9 @@ Future<String> refresh_id_token() async {
       http.Response _response =
           await http.post(Uri.parse(url), body: data, headers: _headers);
       String _new_id_token = json.decode(_response.body)["id_token"];
-      cookie.set("id_token", _new_id_token);
+      if (global_device == Device.web) {
+        cookie.set("id_token", _new_id_token);
+      } else {}
       return _new_id_token;
     } on Exception catch (e) {
       // something went wrong

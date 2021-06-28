@@ -100,10 +100,12 @@ class _MainState extends State<Main> {
               Footer()
             ],
           ),
-          Align(
-            child: Cookie_Banner(),
-            alignment: Alignment.topCenter,
-          )
+          global_device == Device.web
+              ? Align(
+                  child: Cookie_Banner(),
+                  alignment: Alignment.topCenter,
+                )
+              : Container(),
         ],
       ),
     );
