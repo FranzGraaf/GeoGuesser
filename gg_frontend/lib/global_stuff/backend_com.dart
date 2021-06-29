@@ -3,7 +3,7 @@ import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:http/http.dart' as http;
-import 'package:cooky/cooky.dart' if (dart.library.io) "" as cookie;
+import 'package:cooky/cooky.dart' as cookie;
 
 class Backend_Com {
   static String _be_url = DEVELOPMENT
@@ -12,26 +12,14 @@ class Backend_Com {
 
   Future getdata(String url) async {
     refresh_id_token();
-    var _id_token;
-    if (global_device == Device.web) {
-      _id_token = cookie.get("id_token");
-    } else {
-      _id_token = "";
-    }
-    var _header = {"id_token": _id_token};
+    var _header = {"id_token": cookie.get("id_token")};
     http.Response response = await http.get(Uri.parse(url), headers: _header);
     return json.decode(response.body);
   }
 
   Future postdata(String url, dynamic data) async {
     refresh_id_token();
-    var _id_token;
-    if (global_device == Device.web) {
-      _id_token = cookie.get("id_token");
-    } else {
-      _id_token = "";
-    }
-    var _header = {"id_token": _id_token};
+    var _header = {"id_token": cookie.get("id_token")};
     http.Response response =
         await http.post(Uri.parse(url), body: data, headers: _header);
     return json.decode(response.body);

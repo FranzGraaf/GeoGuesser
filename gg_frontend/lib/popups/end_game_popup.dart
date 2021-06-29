@@ -34,12 +34,16 @@ class _End_Game_PopupState extends State<End_Game_Popup> {
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       },
-                      text: "No",
+                      text: global_language == Global_Language.eng
+                          ? "No"
+                          : "Nein",
                       color: global_color_2,
                     ),
                     Expanded(child: SizedBox()),
                     Text(
-                      "End Game?",
+                      global_language == Global_Language.eng
+                          ? "End Game?"
+                          : "Spiel beenden?",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                     ),
@@ -48,7 +52,8 @@ class _End_Game_PopupState extends State<End_Game_Popup> {
                       onPressed: () {
                         Navigator.of(context).pop(true);
                       },
-                      text: "Yes",
+                      text:
+                          global_language == Global_Language.eng ? "Yes" : "Ja",
                     ),
                     SizedBox(
                       height: 5,

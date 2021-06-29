@@ -8,9 +8,6 @@ import 'package:gg_frontend/global_stuff/DB_User.dart';
 //
 bool DEVELOPMENT = true;
 //
-enum Device { android, ios, web }
-Device global_device = Device
-    .android; // set the target device to aktivate or deactivate the according parts of the codes
 //
 //
 //
@@ -91,14 +88,24 @@ final Map<Global_Theme_Mode, Theme_Mode_Info> global_theme_mode_info = {
 //Point Step variables START-----------------------------------------------------------------------
 Map<double, int> global_point_steps = {
   0.5: 999,
-  1: 500,
-  10: 100,
-  20: 80,
-  30: 75,
-  50: 70,
-  100: 50,
-  200: 25,
-  300: 5
+  1: 800,
+  10: 700,
+  20: 650,
+  30: 600,
+  50: 550,
+  100: 500,
+  200: 450,
+  300: 400,
+  400: 350,
+  500: 300,
+  800: 200,
+  1000: 100,
+  1300: 80,
+  1700: 60,
+  2500: 40,
+  3000: 20,
+  3500: 15,
+  4000: 5,
 }; // 0-0.5km distance => 999 Points; 0.5-1km distance => 500 Points; ...
 //Point Step variables END-----------------------------------------------------------------------
 

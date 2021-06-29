@@ -44,7 +44,7 @@ class _ImpressumState extends State<Impressum> {
                       color: _text_color),
                 ),
                 Text(
-                  "Xinix UG (haftungsbeschränkt)\nHirschstr. 40/1\n74072 Heilbronn",
+                  "Xinix UG (haftungsbeschränkt)\nHirschstr. 40/1\n74078 Heilbronn",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,

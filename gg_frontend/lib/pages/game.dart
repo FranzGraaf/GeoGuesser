@@ -117,12 +117,10 @@ class _GameState extends State<Game> {
         children: [
           Container(
               color: Colors.lightBlueAccent,
-              child: global_device == Device.web
-                  ? GoogleMap(
-                      init_lat: 0,
-                      init_lng: 0,
-                    )
-                  : Container()),
+              child: GoogleMap(
+                init_lat: 0,
+                init_lng: 0,
+              )),
           Align(
             alignment: Alignment.topCenter,
             child: Container(

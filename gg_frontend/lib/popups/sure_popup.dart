@@ -33,12 +33,15 @@ class _Sure_PopupState extends State<Sure_Popup> {
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     },
-                    text: "No",
+                    text:
+                        global_language == Global_Language.eng ? "No" : "Nein",
                     color: global_color_2,
                   ),
                   Expanded(child: SizedBox()),
                   Text(
-                    "Sure?",
+                    global_language == Global_Language.eng
+                        ? "Sure?"
+                        : "Sicher?",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                   ),
                   Expanded(child: SizedBox()),
@@ -46,7 +49,7 @@ class _Sure_PopupState extends State<Sure_Popup> {
                     onPressed: () {
                       Navigator.of(context).pop(true);
                     },
-                    text: "Yes",
+                    text: global_language == Global_Language.eng ? "Yes" : "Ja",
                   ),
                   SizedBox(
                     height: 5,

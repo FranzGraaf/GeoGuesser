@@ -12,6 +12,7 @@ import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
 import 'package:gg_frontend/pages/game_settings.dart';
+import 'package:gg_frontend/popups/info_popup.dart';
 
 class Homepage extends StatefulWidget {
   static const String route = '/homepage';
@@ -22,13 +23,19 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  void _open_info_popup() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return Info_Popup();
+        });
+  }
+
   void initialise() async {
     global_total_players = await Backend_Com().get_total_players();
     if (global_usertype == Usertype.user) {
-      var _ranking = await Backend_Com().get_ranking(global_userdata.points);
-      if (_ranking != "nok") {
-        global_userdata.ranking = _ranking;
-      }
+      global_userdata.ranking =
+          await Backend_Com().get_ranking(global_userdata.points);
     }
     setState(() {});
   }
@@ -203,11 +210,40 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Text(global_language == Global_Language.eng
                       ? "Settings"
                       : "Einstellungen"),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(child: SizedBox()),
+            TextButton(
+              onPressed: () {
+                _open_info_popup();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(global_language == Global_Language.eng
+                      ? "How to play"
+                      : "Spielregeln"),
+                  SizedBox(
+                    width: 0,
+                  ),
+                  Icon(
+                    Icons.info,
+                    color: global_color_1,
+                    size: 42,
+                  ),
                   SizedBox(
                     width: 5,
                   ),

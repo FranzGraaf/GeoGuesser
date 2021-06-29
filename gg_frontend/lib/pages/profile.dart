@@ -65,46 +65,34 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 50,
           ),
-          /*ClipOval(
-              child: Image.network(
-            global_userdata.image_url ?? global_default_user_image,
-            width: 200,
-            height: 200,
-          )),*/
-          global_device == Device.web
-              ? Image_Web_Picker(
-                  key: ValueKey(global_userdata.image_url),
-                  image: global_userdata.image_url,
-                  old_image_path: global_userdata.image_name,
-                  upload_begins: () {},
-                  upload_done: (name, link) async {
-                    if ((await Backend_Com()
-                                .change_userdata("image_name", name)) ==
-                            "ok" &&
-                        await Backend_Com()
-                                .change_userdata("image_url", link) ==
-                            "ok") {
-                      setState(() {
-                        global_userdata.image_name = name;
-                        global_userdata.image_url = link;
-                      });
-                    }
-                  },
-                  picture_deleted: (name) async {
-                    if ((await Backend_Com()
-                                .change_userdata("image_name", null)) ==
-                            "ok" &&
-                        await Backend_Com()
-                                .change_userdata("image_url", null) ==
-                            "ok") {
-                      setState(() {
-                        global_userdata.image_name = null;
-                        global_userdata.image_url = null;
-                      });
-                    }
-                  },
-                )
-              : Container(),
+          Image_Web_Picker(
+            key: ValueKey(global_userdata.image_url),
+            image: global_userdata.image_url,
+            old_image_path: global_userdata.image_name,
+            upload_begins: () {},
+            upload_done: (name, link) async {
+              if ((await Backend_Com().change_userdata("image_name", name)) ==
+                      "ok" &&
+                  await Backend_Com().change_userdata("image_url", link) ==
+                      "ok") {
+                setState(() {
+                  global_userdata.image_name = name;
+                  global_userdata.image_url = link;
+                });
+              }
+            },
+            picture_deleted: (name) async {
+              if ((await Backend_Com().change_userdata("image_name", null)) ==
+                      "ok" &&
+                  await Backend_Com().change_userdata("image_url", null) ==
+                      "ok") {
+                setState(() {
+                  global_userdata.image_name = null;
+                  global_userdata.image_url = null;
+                });
+              }
+            },
+          ),
           SizedBox(
             height: 10,
           ),
