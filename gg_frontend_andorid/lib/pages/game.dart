@@ -12,6 +12,7 @@ import 'package:gg_frontend/pages/homepage.dart';
 import 'package:gg_frontend/pages/result.dart';
 import 'package:gg_frontend/popups/end_game_popup.dart';
 import 'package:gg_frontend/popups/sure_popup.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class Game extends StatefulWidget {
@@ -117,14 +118,9 @@ class _GameState extends State<Game> {
         children: [
           Container(
               color: Colors.lightBlueAccent,
-              child:
-                  /*global_device == Device.web
-                  ? GoogleMap(
-                      init_lat: 0,
-                      init_lng: 0,
-                    )
-                  :*/
-                  Container()),
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(target: LatLng(0, 0)),
+              )),
           Align(
             alignment: Alignment.topCenter,
             child: Container(
