@@ -41,8 +41,10 @@ class _ProfileState extends State<Profile> {
   void initialise() async {
     global_total_players = await Backend_Com().get_total_players();
     if (global_usertype == Usertype.user) {
-      global_userdata.ranking =
-          await Backend_Com().get_ranking(global_userdata.points);
+      var _ranking = await Backend_Com().get_ranking(global_userdata.points);
+      if (_ranking != "nok") {
+        global_userdata.ranking = _ranking;
+      }
     }
     setState(() {});
     _get_ranklist(global_userdata.ranking);

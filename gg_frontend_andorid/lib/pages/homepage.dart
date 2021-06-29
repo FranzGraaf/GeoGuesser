@@ -25,8 +25,10 @@ class _HomepageState extends State<Homepage> {
   void initialise() async {
     global_total_players = await Backend_Com().get_total_players();
     if (global_usertype == Usertype.user) {
-      global_userdata.ranking =
-          await Backend_Com().get_ranking(global_userdata.points);
+      var _ranking = await Backend_Com().get_ranking(global_userdata.points);
+      if (_ranking != "nok") {
+        global_userdata.ranking = _ranking;
+      }
     }
     setState(() {});
   }

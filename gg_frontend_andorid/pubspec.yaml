@@ -30,9 +30,11 @@ dependencies:
   google_sign_in:
   cloud_firestore:
   pointer_interceptor:
+  shared_preferences: # android
   #cooky: #web
   #firebase: #web
   #google_maps: #web
+  
 
 
   # The following adds the Cupertino Icons font to your application.

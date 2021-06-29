@@ -15,7 +15,7 @@ from db_init import DB_Init_Read_Write
 #
 #
 #
-development = True # development: True, production: False
+development = False # development: True, production: False
 #
 #
 #
@@ -57,8 +57,11 @@ def get_uid():
     id_token = request.headers["id_token"]
     if id_token == "null" : return None
     else:
-        user = auth.verify_id_token(id_token)
-        return user["uid"]
+        try:
+            user = auth.verify_id_token(id_token)
+            return user["uid"]
+        except Exception as e:
+            print(e)
 
 def get_request_data():
     ret = json.loads(request.data);
@@ -84,6 +87,7 @@ def get_user():
     data["id"] = user_id
     data["verified"] = False
     ret = json.dumps(data, default=str, indent = 4)
+    print(ret)
     return ret
 
 @app.route('/change_userdata', methods=["POST", "GET"])

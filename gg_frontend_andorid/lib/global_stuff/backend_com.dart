@@ -3,34 +3,27 @@ import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 //import 'package:cooky/cooky.dart' if (dart.library.io) "" as cookie;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class Backend_Com {
   static String _be_url = DEVELOPMENT
-      ? "http://127.0.0.1:5000"
-      : "https://geoguesser-be-run-liw4rmhvna-ey.a.run.app"; // http://127.0.0.1:5000 // https://geoguesser-be-run-liw4rmhvna-ey.a.run.app (production)
+      ? "http://192.168.0.113:8080/"
+      : "https://geoguesser-be-run-liw4rmhvna-ey.a.run.app"; // http://192.168.0.113:8080 (run backend in production mode )  // https://geoguesser-be-run-liw4rmhvna-ey.a.run.app (production)
 
   Future getdata(String url) async {
-    refresh_id_token();
-    var _id_token;
-    if (global_device == Device.web) {
-      //_id_token = cookie.get("id_token");
-    } else {
-      _id_token = "";
-    }
+    await refresh_id_token();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var _id_token = prefs.getString('id_token');
     var _header = {"id_token": _id_token};
     http.Response response = await http.get(Uri.parse(url), headers: _header);
     return json.decode(response.body);
   }
 
   Future postdata(String url, dynamic data) async {
-    refresh_id_token();
-    var _id_token;
-    if (global_device == Device.web) {
-      //_id_token = cookie.get("id_token");
-    } else {
-      _id_token = "";
-    }
+    await refresh_id_token();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var _id_token = prefs.getString('id_token');
     var _header = {"id_token": _id_token};
     http.Response response =
         await http.post(Uri.parse(url), body: data, headers: _header);
@@ -94,7 +87,6 @@ class Backend_Com {
     String url = _be_url + "/get_ranklist";
     Map<String, dynamic> data = {"rank": rank};
     var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
-    print(_response);
     return _response;
   }
 // END interactions ----------------------------------------------------------

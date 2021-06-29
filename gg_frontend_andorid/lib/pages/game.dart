@@ -134,7 +134,7 @@ class _GameState extends State<Game> {
                 gradient: LinearGradient(
                     colors: [
                       Colors.white,
-                      Colors.transparent,
+                      Colors.white.withOpacity(0.0),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(0.0, 1.0),

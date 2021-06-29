@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_frontend/frame/cookie_banner.dart';
 import 'package:gg_frontend/frame/footer.dart';
 import 'package:gg_frontend/frame/frame_pages/about_us.dart';
 import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
@@ -34,6 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'GeoGuesser',
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -101,12 +101,6 @@ class _MainState extends State<Main> {
                 Footer()
               ],
             ),
-            global_device == Device.web
-                ? Align(
-                    child: Cookie_Banner(),
-                    alignment: Alignment.topCenter,
-                  )
-                : Container(),
           ],
         ),
       ),
@@ -159,14 +153,17 @@ class _BackgroundState extends State<Background> {
   Widget build(BuildContext context) {
     Size _screen_size = MediaQuery.of(context).size;
     return Container(
-      width: _screen_size.width,
-      height: _screen_size.height,
-      color: global_color_1.withOpacity(0.15),
-      child: Opacity(
-        opacity: 0.2,
-        child: Image.asset(
-          "assets/images/gg_background.png",
-          fit: BoxFit.cover,
+      color: Colors.white,
+      child: Container(
+        width: _screen_size.width,
+        height: _screen_size.height,
+        color: global_color_1.withOpacity(0.15),
+        child: Opacity(
+          opacity: 0.2,
+          child: Image.asset(
+            "assets/images/gg_background.png",
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
