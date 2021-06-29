@@ -1,0 +1,20 @@
+[{
+        "elementType": "labels",
+        "stylers": [{
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }
+]

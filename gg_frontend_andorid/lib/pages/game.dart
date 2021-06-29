@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:gg_frontend/global_stuff/KEYS.dart';
 import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
-//import 'package:gg_frontend/global_stuff/own_widgets/google_map.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
 import 'package:gg_frontend/pages/homepage.dart';
 import 'package:gg_frontend/pages/result.dart';
@@ -14,6 +14,7 @@ import 'package:gg_frontend/popups/end_game_popup.dart';
 import 'package:gg_frontend/popups/sure_popup.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class Game extends StatefulWidget {
   static const String route = '/game';
@@ -120,6 +121,40 @@ class _GameState extends State<Game> {
               color: Colors.lightBlueAccent,
               child: GoogleMap(
                 initialCameraPosition: CameraPosition(target: LatLng(0, 0)),
+                zoomControlsEnabled: false,
+                myLocationButtonEnabled: false,
+                compassEnabled: false,
+                //mapType: MapType.terrain,
+                tiltGesturesEnabled: false,
+                onMapCreated: (GoogleMapController controller) {
+                  controller.setMapStyle(jsonEncode([
+                    {
+                      "elementType": "labels",
+                      "stylers": [
+                        {"visibility": "off"}
+                      ]
+                    },
+                    {
+                      "featureType": "road",
+                      "stylers": [
+                        {"visibility": "off"}
+                      ]
+                    }
+                  ]));
+                },
+                onTap: (latlon) {
+                  setState(() {
+                    _cursor_lat = latlon.latitude;
+                    _cursor_lon = latlon.longitude;
+                  });
+                },
+                buildingsEnabled: false,
+                markers: {
+                  if (_cursor_lat != null && _cursor_lon != null)
+                    Marker(
+                        position: LatLng(_cursor_lat, _cursor_lon),
+                        markerId: MarkerId("1")),
+                },
               )),
           Align(
             alignment: Alignment.topCenter,

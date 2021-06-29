@@ -32,6 +32,8 @@ dependencies:
   pointer_interceptor:
   shared_preferences: #android
   google_maps_flutter: #android
+  firebase_storage: #android
+  image_picker: #android
   #cooky: #web
   #firebase: #web
   #google_maps: #web
@@ -62,6 +64,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/countries/
+    - assets/map_styles/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

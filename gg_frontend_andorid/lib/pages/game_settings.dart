@@ -72,7 +72,7 @@ class _Game_SettingsState extends State<Game_Settings> {
         SizedBox(
           height: 15,
         ),
-        global_usertype == Usertype.user
+        /*global_usertype == Usertype.user
             ? Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -101,7 +101,7 @@ class _Game_SettingsState extends State<Game_Settings> {
                       })
                 ],
               )
-            : Container(),
+            : Container(),*/
         Expanded(child: SizedBox()),
         global_usertype == Usertype.user
             ? Own_Button_2(
