@@ -1,9 +1,6 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:gg_frontend/global_stuff/KEYS.dart';
 import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
@@ -14,7 +11,6 @@ import 'package:gg_frontend/popups/end_game_popup.dart';
 import 'package:gg_frontend/popups/sure_popup.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class Game extends StatefulWidget {
   static const String route = '/game';
@@ -93,18 +89,11 @@ class _GameState extends State<Game> {
     _target_lon = _loc.lon;
     _target_name =
         global_language == Global_Language.eng ? _loc.name_en : _loc.name_de;
-
-    /*streamController_set_marker.stream.listen((event) {
-      _cursor_lat = event[0];
-      _cursor_lon = event[1];
-    });*/
     super.initState();
   }
 
   @override
   void deactivate() {
-    /*streamController_set_marker.close();
-    streamController_set_marker = StreamController.broadcast();*/
     super.deactivate();
   }
 

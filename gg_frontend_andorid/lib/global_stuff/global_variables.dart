@@ -6,7 +6,7 @@ import 'package:gg_frontend/global_stuff/DB_User.dart';
 //
 //
 //
-bool DEVELOPMENT = true;
+bool DEVELOPMENT = false;
 //
 //
 //
@@ -1383,4 +1383,3 @@ class Location_Variable {
   Location_Variable({this.name_de, this.name_en, this.lon, this.lat});
 }
 //Location variables END-----------------------------------------------------------------------
-
