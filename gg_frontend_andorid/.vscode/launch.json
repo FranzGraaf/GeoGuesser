@@ -51,6 +51,22 @@
                 "-d",
                 "emulator-5554",
             ]
+        },
+        {
+            "name": "ios_debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+            ]
+        },
+        {
+            "name": "ios_release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+            ]
         }
     ]
 }

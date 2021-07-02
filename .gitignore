@@ -7,3 +7,5 @@ gg_frontend_andorid/android/app/google-services.json
 gg_frontend_andorid/android/app/src/main/AndroidManifest.xml
 gg_frontend_andorid/web/index.html
 gg_frontend_andorid/ios/Runner/GoogleService-Info.plist
+gg_frontend_andorid/ios/Runner/AppDelegate.swift
+gg_frontend_andorid/lib/global_stuff/KEYS.dart
