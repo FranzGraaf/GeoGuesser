@@ -30,9 +30,9 @@ dependencies:
   google_sign_in:
   cloud_firestore:
   pointer_interceptor:
-  shared_preferences: #android
-  google_maps_flutter: #android
-  firebase_storage: #android
+  shared_preferences: #android / ios
+  google_maps_flutter: #android / ios
+  firebase_storage: #android / ios
   image_picker: #android
   #cooky: #web
   #firebase: #web
