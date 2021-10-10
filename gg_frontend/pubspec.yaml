@@ -1,5 +1,5 @@
 name: gg_frontend
-description: Free to play GeoGuesser game.
+description: Free to play GeographicGame.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
