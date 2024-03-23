@@ -13,15 +13,15 @@ class Own_Submittable_Text_Input extends StatefulWidget {
   Function(String value) submitted;
   Function() aborted;
   Own_Submittable_Text_Input(this.controller,
-      {this.max_lines,
+      {required this.max_lines,
       this.enabled = true,
-      this.text_style,
-      this.label_text,
-      this.hint_text,
+      required this.text_style,
+      this.label_text = "",
+      this.hint_text = "",
       this.autofocus = false,
-      @required this.on_changed,
-      @required this.submitted,
-      @required this.aborted});
+      required this.on_changed,
+      required this.submitted,
+      required this.aborted});
 
   @override
   _Own_Submittable_Text_InputState createState() =>
@@ -30,7 +30,7 @@ class Own_Submittable_Text_Input extends StatefulWidget {
 
 class _Own_Submittable_Text_InputState
     extends State<Own_Submittable_Text_Input> {
-  String flag;
+  late String flag;
 
   @override
   void initState() {

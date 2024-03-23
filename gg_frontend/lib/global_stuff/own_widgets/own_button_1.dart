@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 
 class Own_Button_1 extends StatefulWidget {
-  Widget child;
+  Widget? child;
   String text;
   double fontSize;
-  Color color;
+  Color? color;
   double width;
   double height;
   Function() onPressed;
   Own_Button_1({
-    Key key,
+    Key? key,
     this.child,
     this.text = "text",
     this.color,
     this.width = 300,
     this.height = 100,
     this.fontSize = 49,
-    @required this.onPressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override

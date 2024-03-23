@@ -16,9 +16,9 @@ class Own_Textinput_V1 extends StatefulWidget {
       this.init_text = "",
       this.enabled = true,
       this.autofocus = false,
-      this.label,
-      this.hint_text,
-      this.on_changed,
+      this.label = "",
+      required this.hint_text,
+      required this.on_changed,
       this.obscure = false,
       this.width = 230});
   @override

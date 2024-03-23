@@ -4,7 +4,7 @@ import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class Sure_Popup extends StatefulWidget {
-  const Sure_Popup({Key key}) : super(key: key);
+  const Sure_Popup({Key? key}) : super(key: key);
 
   @override
   _Sure_PopupState createState() => _Sure_PopupState();

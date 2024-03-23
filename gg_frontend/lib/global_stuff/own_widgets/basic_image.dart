@@ -3,15 +3,15 @@ import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 
 class Basic_Image extends StatefulWidget {
-  double width;
-  double height;
+  double? width;
+  double? height;
   String image; // "assets/images/image_default.jpeg"
   BorderRadius border_radius;
   EdgeInsets padding;
   EdgeInsets margin;
   Duration animation_duration;
   bool get_image_from_storage;
-  ValueKey key;
+  ValueKey? key;
   String default_image_asset;
   bool maximize;
   BoxFit fit;
@@ -21,7 +21,7 @@ class Basic_Image extends StatefulWidget {
   Basic_Image(this.image,
       {this.width /* = 200*/,
       this.height /* = 200*/,
-      this.border_radius,
+      required this.border_radius,
       this.padding = const EdgeInsets.all(10),
       this.margin = const EdgeInsets.all(0),
       this.animation_duration = const Duration(milliseconds: 0),

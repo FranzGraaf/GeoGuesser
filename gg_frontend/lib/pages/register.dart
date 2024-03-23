@@ -9,7 +9,7 @@ import 'package:gg_frontend/pages/homepage.dart';
 
 class Register extends StatefulWidget {
   static const String route = '/register';
-  const Register({Key key}) : super(key: key);
+  const Register({Key? key}) : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();

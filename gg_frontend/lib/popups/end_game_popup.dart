@@ -4,7 +4,7 @@ import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class End_Game_Popup extends StatefulWidget {
-  const End_Game_Popup({Key key}) : super(key: key);
+  const End_Game_Popup({Key? key}) : super(key: key);
 
   @override
   _End_Game_PopupState createState() => _End_Game_PopupState();

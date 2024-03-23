@@ -11,7 +11,7 @@ import 'package:gg_frontend/popups/sure_popup.dart';
 
 class Game_Settings extends StatefulWidget {
   static const String route = '/settings';
-  const Game_Settings({Key key}) : super(key: key);
+  const Game_Settings({Key? key}) : super(key: key);
 
   @override
   _Game_SettingsState createState() => _Game_SettingsState();

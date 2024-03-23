@@ -12,14 +12,14 @@ class Backend_Com {
 
   Future getdata(String url) async {
     refresh_id_token();
-    var _header = {"id_token": cookie.get("id_token")};
+    var _header = {"id_token": cookie.get("id_token") ?? ""};
     http.Response response = await http.get(Uri.parse(url), headers: _header);
     return json.decode(response.body);
   }
 
   Future postdata(String url, dynamic data) async {
     refresh_id_token();
-    var _header = {"id_token": cookie.get("id_token")};
+    var _header = {"id_token": cookie.get("id_token") ?? ""};
     http.Response response =
         await http.post(Uri.parse(url), body: data, headers: _header);
     return json.decode(response.body);
@@ -42,7 +42,7 @@ class Backend_Com {
 
   Future<DB_User> get_user() async {
     String url = _be_url + "/get_user";
-    Map<String, dynamic> data = null;
+    Map<String, dynamic> data = {};
     var _response = (await Backend_Com().postdata(url, jsonEncode(data)));
     if (_response == "nok") {
       return DB_User();

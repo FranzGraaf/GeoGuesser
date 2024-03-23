@@ -12,6 +12,7 @@ import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/homepage.dart';
+import 'package:gg_frontend/frame/frame_pages/how_to_userdata.dart';
 import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
 import 'package:gg_frontend/pages/register.dart';
@@ -23,7 +24,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyDR89Kk5nK1S7IZ_z4_GrmqvqyTyXx455g",
+          appId: "1:113329104078:web:f1fa602866d501e1d5dc9f",
+          messagingSenderId: "113329104078",
+          projectId: "geoguesser-bccbe"));
   FirebaseFirestore.instance; // init firestore
   runApp(MyApp());
 }
@@ -35,9 +41,9 @@ class MyApp extends StatelessWidget {
       title: 'GeographicGame',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          useMaterial3: false),
       initialRoute: Homepage.route, //Splash_screen.route,
       onGenerateRoute: generateRoute,
     );
@@ -54,7 +60,7 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  void _check_user(User user) async {
+  void _check_user(User? user) async {
     //print(user);
     if (user == null && global_usertype == Usertype.user) {
       global_usertype = Usertype.visitor;
@@ -70,10 +76,12 @@ class _MainState extends State<Main> {
 
   @override
   void initState() {
-    auth_firebase.authStateChanges().listen((User user) async {
+    auth_firebase.authStateChanges().listen((User? user) async {
       _check_user(user);
     });
-    _check_user(auth_firebase.currentUser);
+    if (auth_firebase.currentUser != null) {
+      _check_user(auth_firebase.currentUser!);
+    }
     super.initState();
   }
 
@@ -138,13 +146,15 @@ Widget get_main_widget(var arguments) {
       return Datenschutz();
     case Impressum.route:
       return Impressum();
+    case HowToUserdata.route:
+      return HowToUserdata();
     default:
       return Homepage();
   }
 }
 
 class Background extends StatefulWidget {
-  const Background({Key key}) : super(key: key);
+  const Background({Key? key}) : super(key: key);
 
   @override
   _BackgroundState createState() => _BackgroundState();

@@ -7,7 +7,7 @@ import 'package:gg_frontend/global_stuff/own_widgets/own_submittable_text_input.
 
 class Profile extends StatefulWidget {
   static const String route = '/profile';
-  const Profile({Key key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -43,10 +43,10 @@ class _ProfileState extends State<Profile> {
     global_total_players = await Backend_Com().get_total_players();
     if (global_usertype == Usertype.user) {
       global_userdata.ranking =
-          await Backend_Com().get_ranking(global_userdata.points);
+          await Backend_Com().get_ranking(global_userdata.points!);
     }
     setState(() {});
-    _get_ranklist(global_userdata.ranking);
+    _get_ranklist(global_userdata.ranking!);
   }
 
   @override
@@ -67,8 +67,8 @@ class _ProfileState extends State<Profile> {
           ),
           Image_Web_Picker(
             key: ValueKey(global_userdata.image_url),
-            image: global_userdata.image_url,
-            old_image_path: global_userdata.image_name,
+            image: global_userdata.image_url ?? "",
+            old_image_path: global_userdata.image_name ?? "",
             upload_begins: () {},
             upload_done: (name, link) async {
               if ((await Backend_Com().change_userdata("image_name", name)) ==
@@ -163,7 +163,7 @@ class _ProfileState extends State<Profile> {
               ),
               Own_Button_3(
                 onPressed: () {
-                  _get_ranklist(global_userdata.ranking);
+                  _get_ranklist(global_userdata.ranking!);
                 },
                 text: (global_userdata.ranking ?? "-").toString() +
                     (global_language == Global_Language.eng
@@ -202,7 +202,11 @@ class Profile_Element extends StatefulWidget {
   int number;
   String name;
   int points;
-  Profile_Element({Key key, this.name, this.number, this.points})
+  Profile_Element(
+      {Key? key,
+      required this.name,
+      required this.number,
+      required this.points})
       : super(key: key);
 
   @override

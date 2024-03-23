@@ -63,12 +63,14 @@ class _GoogleMapState extends State<GoogleMap> {
       GMap map = GMap(elem, mapOptions);
 
       map.onClick.listen((mapsMouseEvent) {
-        streamController_set_marker
-            .add([mapsMouseEvent.latLng.lat, mapsMouseEvent.latLng.lng]);
+        streamController_set_marker.add([
+          mapsMouseEvent.latLng!.lat.toDouble(),
+          mapsMouseEvent.latLng!.lng.toDouble()
+        ]);
         marker.visible = false;
         marker = Marker(MarkerOptions()
           ..position =
-              LatLng(mapsMouseEvent.latLng.lat, mapsMouseEvent.latLng.lng)
+              LatLng(mapsMouseEvent.latLng!.lat, mapsMouseEvent.latLng!.lng)
           ..map = map
           ..title = ""
           ..label = "");

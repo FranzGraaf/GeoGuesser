@@ -3,7 +3,7 @@ import 'package:gg_frontend/global_stuff/global_variables.dart';
 
 class Own_Page_Language_Switch extends StatefulWidget {
   Function(Global_Language newValue) on_change;
-  Own_Page_Language_Switch({@required this.on_change});
+  Own_Page_Language_Switch({required this.on_change});
   @override
   _Own_Page_Language_SwitchState createState() =>
       _Own_Page_Language_SwitchState();
@@ -39,8 +39,8 @@ class _Own_Page_Language_SwitchState extends State<Own_Page_Language_Switch> {
         height: 2,
         color: Colors.deepPurpleAccent,
       ),*/
-        onChanged: (Global_Language newValue) {
-          widget.on_change(newValue);
+        onChanged: (Global_Language? newValue) {
+          widget.on_change(newValue!);
           setState(() {
             global_language = newValue;
           });
@@ -54,13 +54,13 @@ class _Own_Page_Language_SwitchState extends State<Own_Page_Language_Switch> {
               child: Row(
                 children: [
                   Image.asset(
-                    global_language_info[value].icon,
+                    global_language_info[value]!.icon,
                     width: 25,
                   ),
                   SizedBox(
                     width: 20,
                   ),
-                  Text(global_language_info[value].name),
+                  Text(global_language_info[value]!.name),
                   /*Expanded(
                     child: SizedBox(),
                   ),*/

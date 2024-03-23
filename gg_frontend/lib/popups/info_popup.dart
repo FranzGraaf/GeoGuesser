@@ -5,7 +5,7 @@ import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class Info_Popup extends StatefulWidget {
-  const Info_Popup({Key key}) : super(key: key);
+  const Info_Popup({Key? key}) : super(key: key);
 
   @override
   _Info_PopupState createState() => _Info_PopupState();
@@ -77,16 +77,18 @@ class _Info_PopupState extends State<Info_Popup> {
                                     children: [
                                       Info_Popup_Pointlist_Element(
                                         color: global_color_1.withOpacity(
-                                            global_point_steps[k] / 1000),
+                                            (global_point_steps[k] ?? 0) /
+                                                1000),
                                         number: k,
                                         leading_text: "< ",
                                         trailing_text: " km",
                                       ),
                                       Info_Popup_Pointlist_Element(
                                         color: global_color_1.withOpacity(
-                                            global_point_steps[k] / 1000),
-                                        number:
-                                            global_point_steps[k].toDouble(),
+                                            (global_point_steps[k] ?? 0) /
+                                                1000),
+                                        number: (global_point_steps[k] ?? 0)
+                                            .toDouble(),
                                         leading_text: "",
                                         trailing_text: global_language ==
                                                 Global_Language.eng
@@ -133,10 +135,10 @@ class Info_Popup_Pointlist_Element extends StatefulWidget {
   String trailing_text;
   Color color;
   Info_Popup_Pointlist_Element(
-      {Key key,
-      this.number,
-      this.leading_text,
-      this.trailing_text,
+      {Key? key,
+      required this.number,
+      required this.leading_text,
+      required this.trailing_text,
       this.color = Colors.white})
       : super(key: key);
 

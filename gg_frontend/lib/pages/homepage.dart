@@ -5,9 +5,6 @@ import 'package:gg_frontend/global_stuff/backend_com.dart';
 import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/global_stuff/own_widgets/own_button_1.dart';
-import 'package:gg_frontend/global_stuff/own_widgets/own_button_2.dart';
-import 'package:gg_frontend/global_stuff/own_widgets/own_button_3.dart';
-import 'package:gg_frontend/main.dart';
 import 'package:gg_frontend/pages/game.dart';
 import 'package:gg_frontend/pages/login.dart';
 import 'package:gg_frontend/pages/profile.dart';
@@ -16,7 +13,7 @@ import 'package:gg_frontend/popups/info_popup.dart';
 
 class Homepage extends StatefulWidget {
   static const String route = '/homepage';
-  const Homepage({Key key}) : super(key: key);
+  const Homepage({Key? key}) : super(key: key);
 
   @override
   _HomepageState createState() => _HomepageState();
@@ -35,7 +32,7 @@ class _HomepageState extends State<Homepage> {
     global_total_players = await Backend_Com().get_total_players();
     if (global_usertype == Usertype.user) {
       global_userdata.ranking =
-          await Backend_Com().get_ranking(global_userdata.points);
+          await Backend_Com().get_ranking(global_userdata.points!);
     }
     setState(() {});
   }

@@ -22,7 +22,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 PageRoute _default_PageRoute(RouteSettings settings) {
   return PageRouteBuilder(
       pageBuilder: (_, a1, a2) {
-        global_active_route = settings.name;
+        global_active_route = settings.name ?? "";
         return Main(
           arguments: settings.arguments,
         );

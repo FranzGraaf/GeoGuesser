@@ -7,15 +7,15 @@ import 'package:gg_frontend/pages/homepage.dart';
 class Result extends StatefulWidget {
   var arguments;
   static const String route = '/result';
-  Result({Key key, this.arguments}) : super(key: key);
+  Result({Key? key, this.arguments}) : super(key: key);
 
   @override
   _ResultState createState() => _ResultState();
 }
 
 class _ResultState extends State<Result> {
-  int _result_points;
-  double _distance;
+  late int _result_points;
+  late double _distance;
 
   @override
   void initState() {

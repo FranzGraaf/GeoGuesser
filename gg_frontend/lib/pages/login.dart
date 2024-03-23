@@ -10,7 +10,7 @@ import 'package:gg_frontend/pages/register.dart';
 
 class Login extends StatefulWidget {
   static const String route = '/login';
-  const Login({Key key}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();

@@ -16,9 +16,10 @@ double global_mobile_treshold = 700;
 String global_active_route = "/";
 
 enum Usertype { visitor, user }
+
 Usertype global_usertype = Usertype.visitor; // usertype is visitor by default
 DB_User global_userdata = DB_User();
-int global_total_players;
+int? global_total_players;
 
 StreamController<bool> global_rebuild_controller =
     StreamController<bool>.broadcast();
@@ -46,6 +47,7 @@ Color global_color_5_black = Color.fromRGBO(0, 0, 0, 1);
 
 //Language variables START-----------------------------------------------------------------------
 enum Global_Language { ger, eng }
+
 Global_Language global_language = Global_Language.eng;
 
 StreamController<Global_Language> global_language_streamController =
@@ -54,7 +56,7 @@ StreamController<Global_Language> global_language_streamController =
 class Language_Info {
   String name;
   String icon;
-  Language_Info({this.icon, this.name});
+  Language_Info({required this.icon, required this.name});
 }
 
 final Map<Global_Language, Language_Info> global_language_info = {
@@ -67,6 +69,7 @@ final Map<Global_Language, Language_Info> global_language_info = {
 
 //Theme Mode variables START-----------------------------------------------------------------------
 enum Global_Theme_Mode { light, dark }
+
 Global_Theme_Mode global_theme_mode = Global_Theme_Mode.light;
 
 StreamController<Global_Theme_Mode> global_theme_mode_streamController =
@@ -75,7 +78,7 @@ StreamController<Global_Theme_Mode> global_theme_mode_streamController =
 class Theme_Mode_Info {
   String name;
   IconData icon;
-  Theme_Mode_Info({this.icon, this.name});
+  Theme_Mode_Info({required this.icon, required this.name});
 }
 
 final Map<Global_Theme_Mode, Theme_Mode_Info> global_theme_mode_info = {
@@ -1380,7 +1383,11 @@ class Location_Variable {
   String name_en;
   double lon;
   double lat;
-  Location_Variable({this.name_de, this.name_en, this.lon, this.lat});
+  Location_Variable(
+      {required this.name_de,
+      required this.name_en,
+      required this.lon,
+      required this.lat});
 }
 //Location variables END-----------------------------------------------------------------------
 

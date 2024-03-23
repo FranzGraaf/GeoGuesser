@@ -96,7 +96,7 @@ class _FooterState extends State<Footer> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    FlatButton(
+                    TextButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(About_Us.route);
                         },
@@ -115,7 +115,7 @@ class _FooterState extends State<Footer> {
                       height: 20,
                       color: Colors.white,
                     ),
-                    FlatButton(
+                    TextButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(Datenschutz.route);
                         },
@@ -134,7 +134,7 @@ class _FooterState extends State<Footer> {
                       height: 20,
                       color: Colors.white,
                     ),
-                    FlatButton(
+                    TextButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(Impressum.route);
                         },

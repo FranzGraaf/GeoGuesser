@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/frame/frame_pages/about_us.dart';
 import 'package:gg_frontend/frame/frame_pages/datenschutz.dart';
+import 'package:gg_frontend/frame/frame_pages/how_to_userdata.dart';
 import 'package:gg_frontend/frame/frame_pages/impressum.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
 import 'package:gg_frontend/main.dart';
@@ -96,6 +97,13 @@ class _HeaderState extends State<Header> {
         text = global_language == Global_Language.eng
             ? "Legal notice"
             : "Impressum";
+        return;
+      case HowToUserdata.route:
+        visible = true;
+        home_visible = true;
+        text = global_language == Global_Language.eng
+            ? "User data"
+            : "Nutzerdaten";
         return;
       default:
         visible = false;

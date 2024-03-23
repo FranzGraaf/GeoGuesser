@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:cooky/cooky.dart' as cookie;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:gg_frontend/global_stuff/DB_User.dart';
 import 'package:gg_frontend/global_stuff/KEYS.dart';
 import 'package:gg_frontend/global_stuff/global_variables.dart';
@@ -9,13 +8,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-Future<String> registerWithEmailPassword(String email, String password) async {
+Future<String?> registerWithEmailPassword(String email, String password) async {
   try {
     await auth_firebase.createUserWithEmailAndPassword(
         email: email, password: password);
-    String _id_token = await auth_firebase.currentUser.getIdToken();
+    String _id_token = await auth_firebase.currentUser!.getIdToken() ?? "";
     cookie.set("id_token", _id_token);
-    cookie.set("refresh_token", auth_firebase.currentUser.refreshToken);
+    cookie.set("refresh_token", auth_firebase.currentUser!.refreshToken ?? "");
     return _id_token;
   } on FirebaseAuthException catch (e) {
     print(e.message);
@@ -23,15 +22,15 @@ Future<String> registerWithEmailPassword(String email, String password) async {
   }
 }
 
-Future<String> signInWithEmailPassword(String email, String password) async {
+Future<String?> signInWithEmailPassword(String email, String password) async {
   try {
     await auth_firebase.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
-    String id_token = await auth_firebase.currentUser.getIdToken();
+    String id_token = await auth_firebase.currentUser!.getIdToken() ?? "";
     cookie.set("id_token", id_token);
-    cookie.set("refresh_token", auth_firebase.currentUser.refreshToken);
+    cookie.set("refresh_token", auth_firebase.currentUser!.refreshToken ?? "");
     return id_token;
   } on FirebaseAuthException catch (e) {
     print(e.message);
@@ -39,7 +38,7 @@ Future<String> signInWithEmailPassword(String email, String password) async {
   }
 }
 
-Future<String> logout() async {
+Future<String?> logout() async {
   auth_firebase.signOut();
   cookie.remove("id_token");
   cookie.remove("refresh_token");
@@ -50,7 +49,7 @@ Future<String> logout() async {
 Future<String> refresh_id_token() async {
   // refreshes the session id token with the refresh id token
   if (cookie.get("refresh_token") != null) {
-    String _refresh_token = cookie.get("refresh_token");
+    String? _refresh_token = cookie.get("refresh_token");
     String url = "https://securetoken.googleapis.com/v1/token?key=" +
         FIREBASE_API_KEY; // FIREBASE_API_KEY // FIREBASE_API_KEY_2
     Map<String, dynamic> data = {

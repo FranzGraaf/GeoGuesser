@@ -3,7 +3,7 @@ import 'package:gg_frontend/pages/homepage.dart';
 
 class Splash_screen extends StatefulWidget {
   static const String route = '/splash_screen';
-  const Splash_screen({Key key}) : super(key: key);
+  const Splash_screen({Key? key}) : super(key: key);
 
   @override
   _Splash_screenState createState() => _Splash_screenState();

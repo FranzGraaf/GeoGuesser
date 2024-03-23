@@ -16,18 +16,18 @@ import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class Game extends StatefulWidget {
   static const String route = '/game';
-  const Game({Key key}) : super(key: key);
+  const Game({Key? key}) : super(key: key);
 
   @override
   _GameState createState() => _GameState();
 }
 
 class _GameState extends State<Game> {
-  double _target_lat;
-  double _target_lon;
+  late double _target_lat;
+  late double _target_lon;
   String _target_name = "";
-  double _cursor_lat;
-  double _cursor_lon;
+  late double _cursor_lat;
+  late double _cursor_lon;
 
   Location_Variable _get_random_location() {
     return global_location_variables[
@@ -62,9 +62,9 @@ class _GameState extends State<Game> {
         int _points = _calc_result_points(_distance);
         if (global_usertype == Usertype.user) {
           if ((await Backend_Com().change_userdata(
-                  "points", global_userdata.points + _points) ==
+                  "points", (global_userdata.points ?? 0) + _points) ==
               "ok")) {
-            global_userdata.points += _points;
+            global_userdata.points = (global_userdata.points ?? 0) + _points;
           }
         }
         Navigator.of(context).pushReplacementNamed(Result.route, arguments: {
@@ -78,7 +78,7 @@ class _GameState extends State<Game> {
   int _calc_result_points(double distance) {
     for (double i in global_point_steps.keys) {
       if (distance < i) {
-        return global_point_steps[i];
+        return global_point_steps[i]!;
       }
     }
     return 0;

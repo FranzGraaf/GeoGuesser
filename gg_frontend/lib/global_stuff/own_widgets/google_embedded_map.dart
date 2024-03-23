@@ -1,17 +1,17 @@
 import 'dart:html';
-
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:gg_frontend/global_stuff/KEYS.dart';
 
 class Google_Embedded_Map extends StatefulWidget {
-  const Google_Embedded_Map({Key key}) : super(key: key);
+  const Google_Embedded_Map({Key? key}) : super(key: key);
 
   @override
   _Google_Embedded_MapState createState() => _Google_Embedded_MapState();
 }
 
 class _Google_Embedded_MapState extends State<Google_Embedded_Map> {
-  Widget _iframeWidget;
+  late Widget _iframeWidget;
 
   @override
   void initState() {

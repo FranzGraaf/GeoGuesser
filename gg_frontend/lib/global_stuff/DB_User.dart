@@ -4,15 +4,15 @@ import 'package:gg_frontend/global_stuff/global_functions.dart';
 import 'package:intl/intl.dart';
 
 class DB_User {
-  String id;
-  bool verified;
-  String image_url;
-  String image_name;
-  String nickname;
-  int points;
-  int ranking;
-  String language;
-  bool show_in_ranking;
+  String? id;
+  bool? verified;
+  String? image_url;
+  String? image_name;
+  String? nickname;
+  int? points;
+  int? ranking;
+  String? language;
+  bool? show_in_ranking;
 
   DB_User({
     this.id,

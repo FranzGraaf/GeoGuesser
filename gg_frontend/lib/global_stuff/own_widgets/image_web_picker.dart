@@ -9,7 +9,7 @@ class Image_Web_Picker extends StatefulWidget {
   String image; //"assets/images/default_pic.png"
   double width;
   double height;
-  BorderRadius border_radius;
+  BorderRadius? border_radius;
   EdgeInsets padding;
   EdgeInsets margin;
   Duration animation_duration;
@@ -18,7 +18,7 @@ class Image_Web_Picker extends StatefulWidget {
 
   Function(String name, String link) upload_done; // name is the storage path
   Function(String name) picture_deleted; // name is the storage path
-  ValueKey key;
+  ValueKey? key;
   Alignment add_icon_alignment;
   Alignment edit_icon_alignment;
   String default_image_asset;
@@ -27,7 +27,7 @@ class Image_Web_Picker extends StatefulWidget {
       old_image_path; // path to old image so it can be deleted and replaced no image will be deleted when this is null or an empty string
   bool shadow;
   Image_Web_Picker({
-    this.image,
+    required this.image,
     this.width = 200,
     this.height = 200,
     this.border_radius,
@@ -35,11 +35,11 @@ class Image_Web_Picker extends StatefulWidget {
     this.margin = const EdgeInsets.all(0),
     this.animation_duration = const Duration(milliseconds: 0),
     this.get_image_from_storage = false,
-    @required this.upload_begins,
-    @required this.upload_done,
-    @required this.picture_deleted,
+    required this.upload_begins,
+    required this.upload_done,
+    required this.picture_deleted,
     this.key,
-    this.old_image_path,
+    required this.old_image_path,
     this.add_icon_alignment = Alignment.center,
     this.edit_icon_alignment = Alignment.topLeft,
     this.default_image_asset = "assets/images/avatar_bild_200.png",
@@ -54,11 +54,12 @@ class _Image_Web_PickerState extends State<Image_Web_Picker> {
   bool _edit = false;
   //String _resize_path_extension = "_500x500"; // this extension gets added from the firebase extension that resizes the images
 
-  void _uploadImage({@required Function(File file) onSelected}) {
-    InputElement uploadInput = FileUploadInputElement()..accept = 'image/*';
+  void _uploadImage({required Function(File file) onSelected}) {
+    FileUploadInputElement uploadInput = FileUploadInputElement()
+      ..accept = 'image/*';
     uploadInput.click();
     uploadInput.onChange.listen((event) {
-      final file = uploadInput.files.first;
+      final file = uploadInput.files!.first;
       final reader = FileReader();
       reader.readAsDataUrl(file);
       reader.onLoadEnd.listen((event) {
@@ -75,7 +76,7 @@ class _Image_Web_PickerState extends State<Image_Web_Picker> {
         userId = "visitor_id";
         break;
       case Usertype.user:
-        userId = global_userdata.id;
+        userId = global_userdata.id ?? "";
         break;
       default:
         userId = "error_no_user_or_visitor";
@@ -133,7 +134,8 @@ class _Image_Web_PickerState extends State<Image_Web_Picker> {
                 widget.image,
                 width: widget.width,
                 height: widget.height,
-                border_radius: widget.border_radius,
+                border_radius:
+                    widget.border_radius ?? BorderRadius.circular(10),
                 padding: widget.padding,
                 animation_duration: widget.animation_duration,
                 get_image_from_storage: widget.get_image_from_storage,

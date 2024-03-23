@@ -15,14 +15,14 @@ class Text_Date_Picker extends StatefulWidget {
   Text_Date_Picker({
     this.enabled = true,
     this.date_and_time = false,
-    this.date,
-    this.first_date,
-    this.label,
-    this.width,
-    this.onValueChanged,
+    required this.date,
+    required this.first_date,
+    required this.label,
+    required this.width,
+    required this.onValueChanged,
     this.padding = const EdgeInsets.only(top: 0, bottom: 0),
-    this.controller,
-    this.text_style,
+    required this.controller,
+    required this.text_style,
   });
 
   @override
@@ -101,7 +101,7 @@ class _Text_Date_PickerState extends State<Text_Date_Picker> {
                   return MediaQuery(
                     data: MediaQuery.of(context)
                         .copyWith(alwaysUse24HourFormat: true),
-                    child: child,
+                    child: child ?? const SizedBox(),
                   );
                 },
               ).then((value) {
@@ -193,7 +193,7 @@ class _Text_Date_PickerState extends State<Text_Date_Picker> {
                 widget.date = DateFormat('dd.MM.yyyy').parse(newValue);
               }
             } catch (error) {
-              Scaffold.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(
                 'Datum überprüfen',
                 textAlign: TextAlign.center,
